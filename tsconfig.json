@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ESNext",
+        "jsx": "react-jsx",
+        "rootDir": ".",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "strict": false,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "types": ["node"],
+        "noEmit": false,
+        "noImplicitAny": true,
+        "typeRoots": ["./src/types"],
+    }
+}

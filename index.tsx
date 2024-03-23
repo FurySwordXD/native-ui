@@ -4,6 +4,7 @@ export { default as Box } from './layout/Box';
 export { default as HStack } from './layout/HStack';
 export { default as VStack } from './layout/VStack';
 export { default as Card } from './layout/Card';
+export { default as Divider } from './layout/Divider';
 
 // Interaction
 export { default as Text } from './interactables/Text';

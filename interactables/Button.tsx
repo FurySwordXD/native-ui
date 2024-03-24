@@ -16,7 +16,7 @@ export default function CustomButtom({ variant = 'primary', title, style, leftEl
 {
     const isLight = variant == 'ghost' || variant == 'light';
 
-    const shadowConfig = isLight && {
+    const shadowConfig = !isLight && {
         elevation: 3,
         shadowColor: 'black',
         shadowOpacity: 0.15,

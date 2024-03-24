@@ -13,5 +13,8 @@ git commit -m "${c}"
 git push
 
 # PULL
+cd "${BASEDIR}/../common-components/"
+npm update native-ui --latest
+
 cd "${BASEDIR}/../client/"
 npm update native-ui --latest

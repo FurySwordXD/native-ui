@@ -4,7 +4,7 @@ import Colors from "../Colors";
 import Text from "./Text";
 
 interface Props extends PressableProps {
-    color?: 'primary' | 'secondary' | 'tertiary' | 'error' | 'success' | 'warning' | 'dark' | 'black' | 'light' | 'white';
+    color?: keyof typeof Colors;
     variant?: 'solid' | 'outline' | 'ghost';
     disableShadow?: boolean;
     title?: string;

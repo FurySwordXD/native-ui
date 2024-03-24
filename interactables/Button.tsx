@@ -4,8 +4,9 @@ import Colors from "../Colors";
 import Text from "./Text";
 
 interface Props extends PressableProps {
-    color?: 'primary' | 'secondary' | 'tertiary' | 'error' | 'success' | 'warning' | 'dark' | 'light'
+    color?: 'primary' | 'secondary' | 'tertiary' | 'error' | 'success' | 'warning' | 'dark' | 'black' | 'light' | 'white';
     variant?: 'solid' | 'outline' | 'ghost';
+    disableShadow?: boolean;
     title?: string;
     style?: ViewStyle;
     leftElement?: React.JSX.Element;
@@ -13,9 +14,9 @@ interface Props extends PressableProps {
     children?: React.ReactNode;
 }
 
-export default function CustomButtom({ variant = 'solid', color = 'primary', title, style, leftElement, rightElement, children, ...props }: Props)
+export default function CustomButtom({ variant = 'solid', color = 'primary', disableShadow = false, title, style, leftElement, rightElement, children, ...props }: Props)
 {
-    const shadowConfig = variant == 'solid' && {
+    const shadowConfig = variant == 'solid' && !disableShadow && {
         elevation: 3,
         shadowColor: 'black',
         shadowOpacity: 0.15,

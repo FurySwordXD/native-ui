@@ -14,7 +14,9 @@ interface Props extends PressableProps {
 
 export default function CustomButtom({ variant = 'primary', title, style, leftElement, rightElement, children, ...props }: Props)
 {
-    const shadowConfig = variant != 'ghost' && {
+    const isLight = variant == 'ghost' || variant == 'light';
+
+    const shadowConfig = isLight && {
         elevation: 3,
         shadowColor: 'black',
         shadowOpacity: 0.15,
@@ -25,7 +27,7 @@ export default function CustomButtom({ variant = 'primary', title, style, leftEl
     return <Pressable {...props} style={({ pressed }) => ({
             flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
             gap: 10, paddingVertical: 12, paddingHorizontal: 24, borderRadius: 10,
-            backgroundColor: variant != 'ghost' && Colors[variant],
+            backgroundColor: !isLight && (Colors[variant] || Colors.primary),
             transform: [{ scale: pressed ? 0.95 : 1 }],
             opacity: pressed ? 0.5 : 1,
             userSelect: 'none',
@@ -35,7 +37,7 @@ export default function CustomButtom({ variant = 'primary', title, style, leftEl
     >
         <>
         {leftElement}
-        {title && <Text style={{ fontSize: 14, fontWeight: '400', color: Colors.white }}>{title}</Text>}
+        {title && <Text style={{ fontSize: 14, fontWeight: '400', color: isLight ? Colors.dark : Colors.white }}>{title}</Text>}
         {rightElement}
         {children}
         </>

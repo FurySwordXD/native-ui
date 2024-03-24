@@ -20,7 +20,7 @@ export default function Card({ style, children, ...props }: Props)
         style={{
             backgroundColor: Colors.white, borderRadius: 10,
             padding: 20,
-            ...shadowConfig,
+            // ...shadowConfig,
             ...style
         }}
     >

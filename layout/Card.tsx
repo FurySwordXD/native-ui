@@ -19,7 +19,7 @@ export default function Card({ style, children, ...props }: Props)
     return <View {...props}
         style={{
             backgroundColor: Colors.white, borderRadius: 10,
-            padding: 5,
+            padding: 20,
             ...shadowConfig,
             ...style
         }}

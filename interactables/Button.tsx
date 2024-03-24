@@ -1,6 +1,7 @@
 import React from "react";
-import { Pressable, Text, PressableProps, ViewStyle } from "react-native";
+import { Pressable, PressableProps, ViewStyle } from "react-native";
 import Colors from "../Colors";
+import Text from "./Text";
 
 interface Props extends PressableProps {
     variant?: 'primary' | 'secondary' | 'tertiary' | 'error' | 'success' | 'warning' | 'dark' | 'light' | 'transparent';
@@ -34,7 +35,7 @@ export default function CustomButtom({ variant = 'primary', title, style, leftEl
     >
         <>
         {leftElement}
-        {title && <Text style={{ fontSize: 16, fontWeight: '500', color: Colors.white }}>{title}</Text>}
+        {title && <Text style={{ fontSize: 14, fontWeight: '400', color: Colors.white }}>{title}</Text>}
         {rightElement}
         {children}
         </>

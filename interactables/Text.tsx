@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TextStyle, TextProps } from "react-native";
+import { Text, TextStyle, TextProps, Platform } from "react-native";
 import Colors from "../Colors";
 
 interface Props extends TextProps {
@@ -13,8 +13,8 @@ export default function CustomText({ variant = 'default', style, children, ...pr
     switch (variant) {
         case 'heading':
             variantStyle.color = Colors.black;
-            variantStyle.fontWeight = '500';
-            variantStyle.fontSize = 20;
+            variantStyle.fontWeight = '600';
+            variantStyle.fontSize = 18;
             break;
         case 'key':
             variantStyle.color = Colors.black;

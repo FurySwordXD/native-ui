@@ -7,7 +7,7 @@ interface Props extends ViewProps {
 
 export default function View({ style, children, ...props }: Props)
 {
-    return <DefaultView {...props} style={{ width: '100%', gap: 5 ...style }}>
+    return <DefaultView {...props} style={{ width: '100%', gap: 5, ...style }}>
         {children}
     </DefaultView>;
 }

@@ -31,5 +31,5 @@ export default function CustomText({ variant = 'default', style, children, ...pr
             break;
     }
 
-    return <Text style={{ fontSize: 14, ...variantStyle, ...style }} {...props}>{children}</Text>
+    return <Text style={{ fontSize: 13, ...variantStyle, ...style }} {...props}>{children}</Text>
 }

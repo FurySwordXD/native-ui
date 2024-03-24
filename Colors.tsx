@@ -8,8 +8,8 @@ const Colors = {
     white: '#FFFFFF',
     light: '#F3F4F6',
     grey: '#A1A1AA',
-    dark: '#27272A',
-    black: '#000000',
+    dark: '#3F3F46',
+    black: '#18181B',
 
     error: '#EF4444',
     success: '#16A34A',

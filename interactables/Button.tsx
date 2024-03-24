@@ -4,7 +4,8 @@ import Colors from "../Colors";
 import Text from "./Text";
 
 interface Props extends PressableProps {
-    variant?: 'primary' | 'secondary' | 'tertiary' | 'error' | 'success' | 'warning' | 'dark' | 'light' | 'ghost';
+    color?: 'primary' | 'secondary' | 'tertiary' | 'error' | 'success' | 'warning' | 'dark' | 'light'
+    variant?: 'solid' | 'outline' | 'ghost';
     title?: string;
     style?: ViewStyle;
     leftElement?: React.JSX.Element;
@@ -12,11 +13,9 @@ interface Props extends PressableProps {
     children?: React.ReactNode;
 }
 
-export default function CustomButtom({ variant = 'primary', title, style, leftElement, rightElement, children, ...props }: Props)
+export default function CustomButtom({ variant = 'solid', color = 'primary', title, style, leftElement, rightElement, children, ...props }: Props)
 {
-    const isLight = variant == 'ghost' || variant == 'light';
-
-    const shadowConfig = !isLight && {
+    const shadowConfig = variant == 'solid' && {
         elevation: 3,
         shadowColor: 'black',
         shadowOpacity: 0.15,
@@ -27,7 +26,9 @@ export default function CustomButtom({ variant = 'primary', title, style, leftEl
     return <Pressable {...props} style={({ pressed }) => ({
             flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
             gap: 10, paddingVertical: 12, paddingHorizontal: 24, borderRadius: 10,
-            backgroundColor: !isLight && (Colors[variant] || Colors.primary),
+            backgroundColor: variant == 'solid' && Colors[color],
+            borderColor: variant == 'outline' && Colors[color],
+            borderWidth: variant == 'outline' && 1,
             transform: [{ scale: pressed ? 0.95 : 1 }],
             opacity: pressed ? 0.5 : 1,
             userSelect: 'none',
@@ -37,7 +38,12 @@ export default function CustomButtom({ variant = 'primary', title, style, leftEl
     >
         <>
         {leftElement}
-        {title && <Text style={{ fontSize: 14, fontWeight: '400', color: isLight ? Colors.dark : Colors.white }}>{title}</Text>}
+        {title && <Text
+            style={{ fontSize: 14, fontWeight: '400',
+                color: variant != 'solid' ? Colors[color] : color == 'light' ? Colors.dark : Colors.white
+            }}>
+                {title}
+        </Text>}
         {rightElement}
         {children}
         </>

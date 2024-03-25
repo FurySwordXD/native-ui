@@ -8,12 +8,19 @@ export { default as Card } from './layout/Card';
 export { default as Divider } from './layout/Divider';
 export { default as Modal } from './layout/Modal';
 
-// Interaction
-export { default as Text } from './interactables/Text';
-export { default as Button } from './interactables/Button';
-export { default as Icon } from './interactables/Icon';
-export { default as Input } from './interactables/Input';
-export { default as Image } from './interactables/Image';
+// Primitives
+export { default as Text } from './primitives/Text';
+export { default as Button } from './primitives/Button';
+export { default as Icon } from './primitives/Icon';
+export { default as Input } from './primitives/Input';
+export { default as Image } from './primitives/Image';
+
+// Components
+export { default as Accordion } from './components/Accordion';
+export { default as OverlaySpinner } from './components/OverlaySpinner';
+export { default as Toast } from './components/Toast';
+export { default as Avatar } from './components/Avatar';
+export { UIProvider, showMessage } from './Provider';
 
 // Constants
 export { default as Colors } from './Colors';

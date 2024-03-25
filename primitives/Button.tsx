@@ -14,9 +14,9 @@ interface Props extends PressableProps {
     children?: React.ReactNode;
 }
 
-export default function CustomButtom({ variant = 'solid', color = 'primary', disableShadow = false, title, style, leftElement, rightElement, children, ...props }: Props)
+export default function Button({ variant = 'solid', color = 'primary', disableShadow = false, title, style, leftElement, rightElement, children, ...props }: Props)
 {
-    const shadowConfig = variant == 'solid' && !disableShadow && {
+    const shadowConfig = !disableShadow && {
         elevation: 3,
         shadowColor: 'black',
         shadowOpacity: 0.15,
@@ -27,13 +27,21 @@ export default function CustomButtom({ variant = 'solid', color = 'primary', dis
     return <Pressable {...props} style={({ pressed }) => ({
             flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
             gap: 10, paddingVertical: 12, paddingHorizontal: 24, borderRadius: 10,
-            backgroundColor: variant == 'solid' && Colors[color],
-            borderColor: variant == 'outline' && Colors[color],
-            borderWidth: variant == 'outline' && 1,
+            userSelect: 'none',
+
             transform: [{ scale: pressed ? 0.95 : 1 }],
             opacity: pressed ? 0.5 : 1,
-            userSelect: 'none',
-            ...shadowConfig,
+
+            ...(variant == 'solid' && {
+                backgroundColor: Colors[color],
+                ...shadowConfig,
+            }),
+
+            ...(variant == 'outline' && {
+                borderColor: Colors[color],
+                borderWidth: 1,
+            }),
+
             ...style,
         })}
     >
@@ -41,7 +49,8 @@ export default function CustomButtom({ variant = 'solid', color = 'primary', dis
         {leftElement}
         {title && <Text
             style={{ fontSize: 14, fontWeight: '400',
-                color: variant != 'solid' ? Colors[color] : color == 'light' ? Colors.dark : Colors.white
+                ...(variant == 'solid' && { color: color == 'light' ? Colors.dark : Colors.white }),
+                ...(variant != 'solid' && { color: Colors[color] }),
             }}>
                 {title}
         </Text>}

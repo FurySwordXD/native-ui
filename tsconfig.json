@@ -12,6 +12,6 @@
         "types": ["node"],
         "noEmit": false,
         "noImplicitAny": true,
-        "typeRoots": ["./src/types"],
+        "typeRoots": ["./types"],
     }
 }

@@ -12,10 +12,10 @@ interface SelectItem {
 }
 
 interface Props {
-    value: string;
-    onChange(value: string): void;
+    value?: string;
+    onChange(value: string)?: void;
     items: SelectItem[];
-    placeholder: string;
+    placeholder?: string;
 }
 
 export default function Select({ value, onChange, items, placeholder }: Props)
@@ -35,9 +35,9 @@ export default function Select({ value, onChange, items, placeholder }: Props)
                 />)}
             </View>
         </Modal>
-        <Input placeholder={placeholder} value={selectedValue} readOnly={true} onPressOut={() => setVisible(true)}
-            rightElement={<Icon name="chevron-down" />}
-        />
+        <Button variant='ghost' onPress={()=>setVisible(true)}>
+            <Input placeholder={placeholder} value={selectedValue} readOnly={true} rightElement={<Icon name="chevron-down" />} />
+        </Button>
         </>
     )
 }

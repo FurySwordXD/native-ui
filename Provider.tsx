@@ -22,7 +22,8 @@ export function useMessage()
             messageActive.set(true);
             setTimeout(() => {
                 messageQueue.set(q => {
-                    const nextMessage = q.shift();
+                    q.shift();
+                    const nextMessage = q[0];
                     if (nextMessage) {
                         showMessage(nextMessage);
                     }

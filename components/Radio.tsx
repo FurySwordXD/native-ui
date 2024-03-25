@@ -19,10 +19,10 @@ function RadioItem({ isSelected, option, setSelectedOption }: RadioItemProps)
 {
 
     return (
-        <Button onPress={()=>{ setSelectedOption(option) }}>
+        <Button variant="ghost" onPress={()=>{ setSelectedOption(option) }}>
             <HStack>
-                <Icon size={24} name={isSelected ? 'circle-slice-8' : 'circle-outline'} />
-                <Text style={{ fontSize: 14 }}>{option.label}</Text>
+                <Icon size={24} name={isSelected ? 'radiobox-marked' : 'radiobox-blank'} />
+                <Text>{option.label}</Text>
             </HStack>
         </Button>
     )

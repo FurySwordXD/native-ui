@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Pressable, FlatList } from 'react-native';
 import Modal from '../layout/Modal';
 import Input from '../primitives/Input';
 import Icon from '../primitives/Icon';
@@ -24,20 +25,19 @@ export default function Select({ value, onChange, items, placeholder }: Props)
     const [selectedValue, setSelectedValue] = useState<string>(value);
 
     return (
-        // <DefaultSelect selectedValue={value} placeholder={placeholder} onValueChange={onChange} style={{ width: '100%', height: '100%' }}>
-        //     {items.map(item => <DefaultSelect.Item key={item?.key || item.value} label={item.label} value={item.value} />)}
-        // </DefaultSelect>
         <>
-        <Modal visible={visible}>
-            <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
-                {items.map(item => <Button variant='ghost' color='dark' key={item?.key || item.value} title={item.label}
-                    onPress={() => { setSelectedValue(item.value); setVisible(false); onChange?.(item.value); }}
-                />)}
+        <Modal visible={visible} onRequestClose={() => setVisible(false)}>
+            <View style={{ position: 'absolute', bottom: 0, backgroundColor: 'white', maxHeight: '35%' }}>
+                <FlatList
+                    data={items}
+                    keyExtractor={item => item?.key || item.value}
+                    renderItem={({ item }) => <Button variant='ghost' color='dark' title={item.label} onPress={() => { setSelectedValue(item.value); setVisible(false); onChange?.(item.value); }} />}
+                />
             </View>
         </Modal>
-        <Button variant='ghost' onPress={()=>setVisible(true)}>
-            <Input placeholder={placeholder} value={selectedValue} readOnly={true} rightElement={<Icon name="chevron-down" />} />
-        </Button>
+        <Pressable onPress={()=>setVisible(true)}>
+            <Input placeholder={placeholder} readOnly={true} value={selectedValue} rightElement={<Icon name="chevron-down" />} />
+        </Pressable>
         </>
     )
 }

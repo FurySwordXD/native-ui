@@ -20,6 +20,10 @@ export { default as Accordion } from './components/Accordion';
 export { default as OverlaySpinner } from './components/OverlaySpinner';
 export { default as Toast } from './components/Toast';
 export { default as Avatar } from './components/Avatar';
+export { default as Select } from './components/Select';
+export { default as Radio } from './components/Radio';
+
+// Provider
 export { UIProvider, useMessage } from './Provider';
 
 // Constants

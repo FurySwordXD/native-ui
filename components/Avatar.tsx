@@ -17,8 +17,9 @@ export default function Avatar({ source, size = 50, color = 'primary', alt }: Pr
     return <Box style={{
         width: size, height: size, borderRadius: size,
         backgroundColor: Colors[color],
+        justifyContent: 'center', alignItems: 'center'
     }}>
-        <Text style={{ fontSize: 14, fontWeight: '400', color: Colors.white }}>{alt}</Text>
+        <Text style={{ fontSize: 18, fontWeight: '400', color: Colors.white }}>{alt}</Text>
         <Image resizeMode="center" source={source} style={{ position: 'absolute', width: '100%', height: '100%' }} />
     </Box>;
 }

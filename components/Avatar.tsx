@@ -16,7 +16,7 @@ export default function Avatar({ source, size = 50, color = 'primary', alt }: Pr
 {
     return <Box style={{
         width: size, height: size, borderRadius: size,
-        backgroundColor: Colors[color],
+        backgroundColor: Colors[color], overflow: 'hidden',
         justifyContent: 'center', alignItems: 'center'
     }}>
         <Text style={{ fontSize: 18, fontWeight: '400', color: Colors.white }}>{alt}</Text>

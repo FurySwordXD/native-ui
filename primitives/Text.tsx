@@ -14,11 +14,12 @@ export default function Text({ variant = 'default', style, children, ...props }:
         case 'heading':
             variantStyle.color = Colors.black;
             variantStyle.fontWeight = '600';
-            variantStyle.fontSize = 18;
+            variantStyle.fontSize = 20;
             break;
         case 'key':
-            variantStyle.color = Colors.black;
-            variantStyle.fontWeight = '400';
+            variantStyle.color = Colors.dark;
+            variantStyle.fontWeight = '600';
+            variantStyle.fontSize = 15;
             break;
         case 'subtitle':
             variantStyle.color = Colors.grey;
@@ -31,5 +32,5 @@ export default function Text({ variant = 'default', style, children, ...props }:
             break;
     }
 
-    return <DefaultText style={{ fontSize: 13, ...variantStyle, ...style }} {...props}>{children}</DefaultText>
+    return <DefaultText style={{ fontSize: 14, fontWeight: '500', ...variantStyle, ...style }} {...props}>{children}</DefaultText>
 }

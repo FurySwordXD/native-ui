@@ -1,54 +1,52 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { hookstate, useHookstate } from '@hookstate/core';
 import Toast from "./components/Toast";
-import Modal from "./layout/Modal";
+import * as Animatable from "react-native-animatable";
 
 interface Props {
     children?: React.JSX.Element | React.JSX.Element[];
 }
 
-const messageActiveState = hookstate(false);
 const messageQueueState = hookstate<Message[], {}>([]);
 
 export function useMessage()
 {
-    const messageActive = useHookstate(messageActiveState);
     const messageQueue = useHookstate(messageQueueState);
+
+    const currentMessage = messageQueue.get()[0];
 
     const showMessage = (message: Message) => {
         messageQueue.set(q => { q.push(message); return q; });
-        if (!messageActive.get())
-        {
-            messageActive.set(true);
-            setTimeout(() => {
-                messageQueue.set(q => {
-                    q.shift();
-                    const nextMessage = q[0];
-                    if (nextMessage) {
-                        showMessage(nextMessage);
-                    }
-                    else {
-                        messageActive.set(false);
-                    }
-                    return q;
-                });
-            }, message.duration || 5000);
-        }
     }
 
-    return { showMessage };
+    const dismissMessage = () => {
+        messageQueue.set(q => { q.shift(); return q; });
+    }
+
+    return { currentMessage, showMessage, dismissMessage };
 }
 
 export function UIProvider({ children }: Props)
 {
-    const messageActive = useHookstate(messageActiveState);
-    const messageQueue = useHookstate(messageQueueState);
-    const currentMessage = messageQueue.get()[0];
+    const { currentMessage, dismissMessage } = useMessage();
+    const timerHandle = useRef<number>();
+
+    useEffect(() => {
+        if (timerHandle.current)
+            clearTimeout(timerHandle.current);
+
+        if (currentMessage)
+        {
+            timerHandle.current = setTimeout(() => {
+                dismissMessage();
+            }, currentMessage.duration || 5000);
+        }
+    }, [currentMessage]);
 
     return <>
-        <Modal visible={messageActive.get()} transparent={true}>
-            {messageActive.get() && <Toast duration={currentMessage.duration} title={currentMessage.title} text={currentMessage.text} status={currentMessage.status} />}
-        </Modal>
         {children}
+        {currentMessage != null && <Animatable.View animation={'fadeInDown'} style={{ position: 'absolute' }}>
+            {currentMessage != null && <Toast message={currentMessage} onClose={dismissMessage} />}
+        </Animatable.View>}
     </>;
 }

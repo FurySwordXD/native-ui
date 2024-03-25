@@ -8,9 +8,14 @@ import Button from '../primitives/Button';
 import Colors from '../Colors';
 import Icon from '../primitives/Icon';
 
-export default function Toast(props: Message)
+interface Props {
+    message: Message;
+    onClose?: () => void;
+}
+
+export default function Toast({ message, onClose }: Props)
 {
-    const { id, title, text, status, duration = 5000 } = props;
+    const { id, title, text, status, duration = 5000 } = message;
 
     let backgroundColor = Colors.dark;
     switch (status) {
@@ -23,14 +28,15 @@ export default function Toast(props: Message)
     const windowSize = useWindowDimensions();
 
     useEffect(() => {
+        progressAnim.setValue(0);
         Animated.timing(progressAnim, { toValue: 1, easing: Easing.linear, useNativeDriver: true, duration: duration * .9 }).start();
-    }, [props]);
+    }, [message]);
 
     return (
         <View style={{
                 backgroundColor, overflow: 'hidden', width: windowSize.width,
                 position: 'absolute', transformOrigin: 'left top',
-                top: Platform.OS == 'ios' ? -75 : -50, left: -windowSize.width / 2,
+                // top: Platform.OS == 'ios' ? -75 : -50,
             }}
         >
         <SafeAreaView>
@@ -39,7 +45,7 @@ export default function Toast(props: Message)
                     {title && <Text style={{ fontWeight: 'bold', color: 'white' }}>{title}</Text>}
                     {text && <Text style={{ color: 'white' }}>{text}</Text>}
                 </View>
-                <Button variant='ghost' onPress={()=>Toast.close(id)}>
+                <Button variant='ghost' onPress={onClose}>
                     <Icon name='close-circle-outline' color='white' />
                 </Button>
             </HStack>

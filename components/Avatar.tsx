@@ -19,7 +19,7 @@ export default function Avatar({ source, size = 50, color = 'primary', alt }: Pr
         backgroundColor: Colors[color], overflow: 'hidden',
         justifyContent: 'center', alignItems: 'center'
     }}>
-        <Text style={{ fontSize: 18, fontWeight: '400', color: Colors.white }}>{alt}</Text>
-        <Image resizeMode="center" source={source} style={{ position: 'absolute', width: '100%', height: '100%' }} />
+        <Text style={{ fontSize: 18, fontWeight: '600', color: Colors.white }}>{alt}</Text>
+        {source && <Image resizeMode="center" source={source} style={{ position: 'absolute', width: '100%', height: '100%' }} />}
     </Box>;
 }

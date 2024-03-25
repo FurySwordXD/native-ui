@@ -5,7 +5,7 @@ import Text from "./Text";
 
 interface Props extends PressableProps {
     color?: keyof typeof Colors;
-    variant?: 'solid' | 'outline' | 'ghost';
+    variant?: 'solid' | 'outline' | 'ghost' | 'link';
     disableShadow?: boolean;
     title?: string;
     style?: ViewStyle;
@@ -26,11 +26,15 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
 
     return <Pressable {...props} style={({ pressed }) => ({
             flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-            gap: 10, paddingVertical: 12, paddingHorizontal: 24, borderRadius: 10,
+            gap: 10, borderRadius: 10,
             userSelect: 'none',
 
             transform: [{ scale: pressed ? 0.95 : 1 }],
             opacity: pressed ? 0.5 : 1,
+
+            ...(variant != 'link' && {
+                paddingVertical: 12, paddingHorizontal: 24,
+            }),
 
             ...(variant == 'solid' && {
                 backgroundColor: Colors[color],
@@ -38,8 +42,7 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
             }),
 
             ...(variant == 'outline' && {
-                borderColor: Colors[color],
-                borderWidth: 1,
+                borderColor: Colors[color], borderWidth: 1,
             }),
 
             ...style,

@@ -17,7 +17,6 @@ interface RadioItemProps {
 
 function RadioItem({ isSelected, option, setSelectedOption }: RadioItemProps)
 {
-
     return (
         <Button variant="ghost" onPress={()=>{ setSelectedOption(option) }}>
             <HStack>

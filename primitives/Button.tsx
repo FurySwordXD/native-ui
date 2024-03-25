@@ -29,7 +29,7 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
             gap: 10, borderRadius: 10,
             userSelect: 'none',
 
-            transform: [{ scale: pressed ? 0.95 : 1 }],
+            transform: [{ scale: pressed ? 0.97 : 1 }],
             opacity: pressed ? 0.5 : 1,
 
             ...(variant != 'link' && {

@@ -13,7 +13,7 @@ interface SelectItem {
 
 interface Props {
     value?: string;
-    onChange(value: string)?: void;
+    onChange?(value: string): void;
     items: SelectItem[];
     placeholder?: string;
 }
@@ -31,7 +31,7 @@ export default function Select({ value, onChange, items, placeholder }: Props)
         <Modal visible={visible}>
             <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
                 {items.map(item => <Button variant='ghost' color='dark' key={item?.key || item.value} title={item.label}
-                    onPress={() => { setSelectedValue(item.value); onChange(item.value); setVisible(false); }}
+                    onPress={() => { setSelectedValue(item.value); setVisible(false); onChange?.(item.value); }}
                 />)}
             </View>
         </Modal>

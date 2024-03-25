@@ -16,6 +16,7 @@ export function useMessage()
     const messageQueue = useHookstate(messageQueueState);
 
     const showMessage = (message: Message) => {
+        messageQueue.set(q => { q.push(message); return q; });
         if (!messageActive.get())
         {
             messageActive.set(true);
@@ -31,10 +32,6 @@ export function useMessage()
                     return q;
                 });
             }, message.duration || 5000);
-        }
-        else
-        {
-            messageQueue.set(q => { q.push(message); return q; });
         }
     }
 

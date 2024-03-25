@@ -42,7 +42,7 @@ export default function Input({ leftElement, rightElement, style, error, ...prop
             {leftElement}
             <TextInput {...props}
                 placeholderTextColor={Colors.grey}
-                style={{ flex: 1, paddingVertical: 10, color: Colors.dark, ...style }}
+                style={{ flex: 1, height: 50, paddingVertical: 10, color: Colors.dark, ...style }}
                 onFocus={onFocus}
                 onBlur={onBlur}
             />

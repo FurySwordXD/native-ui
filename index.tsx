@@ -20,7 +20,7 @@ export { default as Accordion } from './components/Accordion';
 export { default as OverlaySpinner } from './components/OverlaySpinner';
 export { default as Toast } from './components/Toast';
 export { default as Avatar } from './components/Avatar';
-export { UIProvider, showMessage } from './Provider';
+export { UIProvider, useMessage } from './Provider';
 
 // Constants
 export { default as Colors } from './Colors';

@@ -22,6 +22,7 @@ export { default as Toast } from './components/Toast';
 export { default as Avatar } from './components/Avatar';
 export { default as Select } from './components/Select';
 export { default as Radio } from './components/Radio';
+export { default as Checkbox } from './components/Checkbox';
 
 // Provider
 export { UIProvider, useMessage } from './Provider';

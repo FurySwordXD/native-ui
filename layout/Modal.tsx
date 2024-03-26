@@ -16,10 +16,9 @@ export default function Modal({ visible, backdrop = true, animationType = 'fade'
         animationType={animationType}
         {...props}
     >
-        <Pressable pointerEvents="box-none" onPress={props.onRequestClose} style={{ width: '100%', height: '100%', backgroundColor: 'transparent' }}>
-            <View style={{ width: '100%', height: '100%', backgroundColor: visible && backdrop && 'rgba(0, 0, 0, 0.5)' }}>
-                {children}
-            </View>
+        <Pressable onPress={props.onRequestClose} style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'transparent' }}>
+            <View style={{ width: '100%', height: '100%', backgroundColor: visible && backdrop && 'rgba(0, 0, 0, 0.5)' }} />
         </Pressable>
+        {children}
     </DefaultModal>;
 }

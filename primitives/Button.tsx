@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, PressableProps, ViewStyle } from "react-native";
+import { Platform, Pressable, PressableProps, ViewStyle } from "react-native";
 import Colors from "../Colors";
 import Text from "./Text";
 
@@ -27,7 +27,7 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
     return <Pressable {...props} style={({ pressed }) => ({
             flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
             gap: 10, borderRadius: 10,
-            userSelect: 'none',
+            userSelect: Platform.OS == 'web' && 'none',
 
             transform: [{ scale: pressed ? 0.97 : 1 }],
             opacity: pressed ? 0.5 : 1,

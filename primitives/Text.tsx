@@ -32,5 +32,5 @@ export default function Text({ variant = 'default', style, children, ...props }:
             break;
     }
 
-    return <DefaultText style={{ fontSize: 14, fontWeight: '500', ...variantStyle, ...style }} {...props}>{children}</DefaultText>
+    return <DefaultText style={{ fontSize: 13, fontWeight: '500', ...variantStyle, ...style }} {...props}>{children}</DefaultText>
 }

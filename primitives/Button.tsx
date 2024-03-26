@@ -53,7 +53,7 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
         {title && <Text
             style={{
                 fontSize: 15,
-                ...(variant == 'solid' && { color: color == 'light' ? Colors.dark : Colors.white }),
+                ...(variant == 'solid' && { color: (color == 'light' || color == 'white') ? Colors.dark : Colors.white }),
                 ...(variant != 'solid' && { color: Colors[color] }),
             }}>
                 {title}

@@ -22,7 +22,7 @@ interface Props {
 export default function Select({ value, onChange, items, placeholder }: Props)
 {
     const [visible, setVisible] = useState(false);
-    const [selectedValue, setSelectedValue] = useState<string>(value);
+    const [selectedItem, setSelectedItem] = useState<SelectItem>(items.find(i => i.value == value));
 
     return (
         <>
@@ -31,12 +31,13 @@ export default function Select({ value, onChange, items, placeholder }: Props)
                 <FlatList
                     data={items}
                     keyExtractor={item => item?.key || item.value}
-                    renderItem={({ item }) => <Button variant='ghost' color='dark' title={item.label} onPress={() => { setSelectedValue(item.value); setVisible(false); onChange?.(item.value); }} />}
+                    renderItem={({ item }) => <Button variant='ghost' color='dark' title={item.label}
+                    onPress={() => { setSelectedItem(item); setVisible(false); onChange?.(item.value); }} />}
                 />
             </View>
         </Modal>
         <Pressable onPress={()=>setVisible(true)}>
-            <Input placeholder={placeholder} readOnly={true} value={selectedValue} rightElement={<Icon name="chevron-down" />} />
+            <Input placeholder={placeholder} readOnly={true} value={selectedItem.label} rightElement={<Icon name="chevron-down" />} />
         </Pressable>
         </>
     )

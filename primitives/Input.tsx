@@ -34,7 +34,7 @@ export default function Input({ leftElement, rightElement, style, error, ...prop
 
     return <View>
         <HStack space={10} style={{
-            borderWidth: 1, paddingHorizontal: 5, alignItems: 'center',
+            borderWidth: 1, paddingHorizontal: 10, alignItems: 'center',
             borderRadius: 10,
             borderColor: isFocused ? `${Colors.primary}50` : Colors.background,
             backgroundColor: isFocused && `${Colors.primary}20`,

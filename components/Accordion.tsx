@@ -20,8 +20,8 @@ export default function Accordion({ defaultIsOpen = false, title, content } : Pr
 
     return (
         <View>
-            <Button variant="ghost" onPress={()=>setIsOpen(o => !o)}>
-                <HStack style={{ paddingHorizontal: 10 }}>
+            <Button variant="link" onPress={()=>setIsOpen(o => !o)}>
+                <HStack style={{ paddingRight: 10 }}>
                     <Box style={{ flex: 1 }}>{title}</Box>
                     <Icon name={isOpen ? 'chevron-up' : 'chevron-down'} />
                 </HStack>

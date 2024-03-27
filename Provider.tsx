@@ -35,7 +35,7 @@ export function UIProvider({ children }: Props)
         if (timerHandle.current)
             clearTimeout(timerHandle.current);
 
-        if (currentMessage)
+        if (currentMessage && currentMessage.duration !== null)
         {
             timerHandle.current = setTimeout(() => {
                 dismissMessage();
@@ -46,7 +46,8 @@ export function UIProvider({ children }: Props)
     return <>
         {children}
         {currentMessage != null && <Animatable.View animation={'fadeInDown'} style={{ position: 'absolute' }}>
-            {currentMessage != null && <Toast message={currentMessage} onClose={dismissMessage} />}
+            {currentMessage != null && (currentMessage.render?.(dismissMessage) ||
+                <Toast message={currentMessage} onClose={dismissMessage} />)}
         </Animatable.View>}
     </>;
 }

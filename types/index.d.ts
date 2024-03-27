@@ -4,5 +4,5 @@ type Message = {
     text?: string;
     status?: "error" | "success" | "info";
     duration?: number;
-    render?: any
+    render?: (dismissMessage: Function) => React.JSX.Element;
 };

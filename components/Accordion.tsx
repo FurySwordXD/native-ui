@@ -12,11 +12,20 @@ interface Props {
     defaultIsOpen?: boolean;
     title: React.JSX.Element;
     content: React.JSX.Element;
+    onOpen?: () => void;
+    onClose?: () => void;
 }
 
-export default function Accordion({ defaultIsOpen = false, title, content } : Props)
+export default function Accordion({ defaultIsOpen = false, title, content, onOpen, onClose } : Props)
 {
     const [isOpen, setIsOpen] = useState(defaultIsOpen);
+
+    useEffect(() => {
+        if (isOpen)
+            onOpen?.();
+        else
+            onClose?.();
+    }, [isOpen]);
 
     return (
         <View>

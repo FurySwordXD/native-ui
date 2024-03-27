@@ -28,7 +28,7 @@ export default function Accordion({ defaultIsOpen = false, title, content } : Pr
             </Button>
             <View>
                 {isOpen && <OverlaySpinner style={{ backgroundColor: 'transparent', maxHeight: 300 }} />}
-                {isOpen && <Animatable.View animation={'fadeIn'} delay={1} duration={200}>
+                {isOpen && <Animatable.View animation={'fadeIn'} delay={1} duration={200} style={{ backgroundColor: 'white' }}>
                     {content}
                 </Animatable.View>}
             </View>

@@ -6,7 +6,9 @@ Native UI is a react native UI library that comes with themed components built o
 - Wrap your App with the Context Provider
 - Start using the various components
 
-### Layout Components
+## Components
+
+### Layout
 - Box
 - View
 - HStack
@@ -43,4 +45,4 @@ This project uses the following color scheme to perform all styling:
 Sainath Ganesh - @furyswordxd
 
 ### License
-This project is licensed under the MIT License - see the [LICENSE.md](link to LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

@@ -36,7 +36,7 @@ Native UI is a react native UI library that comes with themed components built o
 - Avatar
 - OverlaySpinner
 
-### Notification Management System\n
+### Notification Management System
 This library also comes with a built-in notification management system and can be utilized with `useMessage()` hook.
 This system uses a message queue and shows notifications one after another using Toasts (can be modified to use custom render method)
 

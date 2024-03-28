@@ -1,4 +1,4 @@
-# Native UI
+# React Native - Native UI
 Native UI is a react native UI library that comes with themed components built on top of default react native components. All components have been tested to work on Android, IOS and Web (React Native Web).
 
 - [x] High Performant 📈
@@ -6,7 +6,7 @@ Native UI is a react native UI library that comes with themed components built o
 - [x] Minimal Dependencies 🛠️
 - [x] Cross Platform 📱
 - [x] Blazingly Fast 🚀
- 
+
 ## Getting Started
 - Install the library to your project
 - Wrap your App with the Context Provider

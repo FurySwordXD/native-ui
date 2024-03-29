@@ -12,65 +12,72 @@ Native UI is a react native UI library that comes with themed components built o
 ```
 npm install react-native-native-ui
 ```
-- Wrap your App with the Context Provider
+- Wrap your App with the UI Context Provider
 ```
-import { Provider } from 'react-native-native-ui';
+import { UIProvider } from 'react-native-native-ui';
 
 function App({ children, ...props })
 {
-    return <Provider>
+    return <UIProvider>
         {children}
-    </Provider>
+    </UIProvider>
 }
 ```
 - Start using the various components
 ```
-import { View, VStack, Button, HStack, Icon, Input, Text, Card, Colors, Divider, UIProvider, useMessage, Select, Radio } from 'react-native-native-ui';
+import { View, VStack, Button, HStack, Icon, Input, Text,
+    Card, Colors, Divider, UIProvider, useMessage, Select, Radio } from 'react-native-native-ui';
 
 function App()
 {
+    const { showMessage } = useMessage();
+
     return (
-        <UIProvider>
-			<SafeAreaView style={{ flex: 1, backgroundColor: Colors.background }}>
-			<View style={{ flex: 1, backgroundColor: Colors.background, padding: 20 }}>
-			<Card>
-			<VStack style={{ padding: 20, backgroundColor: 'white' }}>
-				<View>
-					<HStack>
-						<Text variant='heading' style={{ flex: 1, fontSize: 20, }}>Heading</Text>
-						<IconButton name='close' />
-					</HStack>
-					<Divider/>
-					<Text variant='key' style={{ fontSize: 15, fontWeight: '600', color: Colors.dark }}>Key text</Text>
-					<Text variant='subtitle' style={{ fontSize: 14, fontWeight: '500' }}>Subtitle</Text>
-				</View>
-				<Input
-					leftElement={<Icon name='account' />}
-					placeholder='username'
-					error='Invalid username!'
-				/>
-				<HStack>
-					<Button color='error' style={{ flex: 1 }}><Icon name='close' color='white' /><Text style={{ color: 'white' }}>Cancel</Text></Button>
-					<Button style={{ flex: 1 }} title='Show Toast'
-						rightElement={<Icon name='chevron-right' color='white' />}
-						onPress={()=>{ showMessage({ title: 'Test', duration: 2000, status: 'error' }); showMessage({ title: 'Test 2', duration: 2000 }); }} />
-				</HStack>
+    <UIProvider>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.background }}>
+        <View style={{ flex: 1, backgroundColor: Colors.background, padding: 20 }}>
+        <Card>
+        <VStack style={{ padding: 20, backgroundColor: 'white' }}>
+            <View>
+                <HStack>
+                    <Text variant='heading' style={{ flex: 1, fontSize: 20, }}>Heading</Text>
+                    <IconButton name='close' />
+                </HStack>
+                <Divider/>
+                <Text variant='key' style={{ fontSize: 15, fontWeight: '600', color: Colors.dark }}>Key text</Text>
+                <Text variant='subtitle' style={{ fontSize: 14, fontWeight: '500' }}>Subtitle</Text>
+            </View>
+            <Input
+                leftElement={<Icon name='account' />}
+                placeholder='username'
+                error='Invalid username!'
+            />
+            <HStack>
+                <Button color='error' style={{ flex: 1 }}><Icon name='close' color='white' /><Text style={{ color: 'white' }}>Cancel</Text></Button>
+                <Button style={{ flex: 1 }} title='Show Toast'
+                    rightElement={<Icon name='chevron-right' color='white' />}
+                    onPress={()=>{
+                        showMessage({ title: 'Test', duration: 2000, status: 'error' });
+                        showMessage({ title: 'Test 2', duration: 2000 });
+                    }}
+                />
+            </HStack>
 
-				<Select value={'1'} placeholder="select" onChange={(v)=>{}}
-					items={[
-						{ value: '1', label: 'One' },
-						{ value: '2', label: 'Two' },
-						{ value: '3', label: 'Three' },
-					]}
-				/>
+            <Select value={'1'} placeholder="select" onChange={(v)=>{}}
+                items={[
+                    { value: '1', label: 'One' },
+                    { value: '2', label: 'Two' },
+                    { value: '3', label: 'Three' },
+                ]}
+            />
 
-				<Radio value='1' options={[{ value: '1', label: 'One' }, { value: '2', label: 'Two' }, { value: '3', label: 'Three' }]} onChange={(v)=>{}} />
+            <Radio value='1' options={[{ value: '1', label: 'One' }, { value: '2', label: 'Two' }, { value: '3', label: 'Three' }]} onChange={(v)=>{}} />
 
-			</VStack>
-			</Card>
-			</View>
-			</SafeAreaView>
-		</UIProvider>
+        </VStack>
+        </Card>
+        </View>
+        </SafeAreaView>
+    </UIProvider>
     )
 }
 ```

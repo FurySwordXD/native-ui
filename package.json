@@ -8,7 +8,7 @@
 	"dependencies": {
 		"@hookstate/core": "^4.0.1",
 		"react-native-animatable": "^1.4.0",
-		"react-native-vector-icons": "^10.0.3"
+		"react-native-vector-icons": "10.0.3"
 	},
 	"devDependencies": {
 		"@types/react": "^18.2.69",

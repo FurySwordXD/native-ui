@@ -1,6 +1,6 @@
 {
 	"name": "react-native-native-ui",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Native UI is a react native UI library that comes with themed components built on top of default react native components. All components have been tested to work on Android, IOS and Web (React Native Web).",
 	"license": "MIT",
 	"repository": { "type": "git", "url": "https://github.com/furyswordxd/native-ui.git" },

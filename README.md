@@ -49,6 +49,14 @@ This project uses the following color scheme to perform all styling:
 - 3 colors of statuses (success, warning, error)
 - 5 shades of white to black (white, light, grey, dark, black)
 
+To override the colors simply import the Colors variable in your index file and edit the values as follows:
+`
+import { Colors } from 'react-native-native-ui';
+
+Colors.primary = 'blue';
+Colors.secondary = 'red';
+Colors.tertiary = 'purple';
+`
 
 ### Authors
 Sainath Ganesh - @furyswordxd

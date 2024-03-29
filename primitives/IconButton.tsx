@@ -5,8 +5,8 @@ import Icon from "./Icon";
 import Button from "./Button";
 
 interface Props extends PressableProps {
+    name: string;
     color?: keyof typeof Colors;
-    name?: string;
     type?: 'AntDesign' | 'Fontisto' | 'Material' | 'MaterialCommunity' | 'Entypo' | 'FontAwesome5' ;
     size?: number;
     style?: ViewStyle;

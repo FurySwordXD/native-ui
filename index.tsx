@@ -11,6 +11,7 @@ export { default as Modal } from './layout/Modal';
 // Primitives
 export { default as Text } from './primitives/Text';
 export { default as Button } from './primitives/Button';
+export { default as IconButton } from './primitives/IconButton';
 export { default as Icon } from './primitives/Icon';
 export { default as Input } from './primitives/Input';
 export { default as Image } from './primitives/Image';

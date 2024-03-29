@@ -24,8 +24,10 @@ Native UI is a react native UI library that comes with themed components built o
 - Divider
 
 ### Primitives
+- Text
 - Button
 - Icon (Uses react-native-vector-icons)
+- IconButton
 - Checkbox
 - Radio
 - Input
@@ -35,6 +37,7 @@ Native UI is a react native UI library that comes with themed components built o
 - Select
 - Avatar
 - OverlaySpinner
+- Accordion
 
 ### Notification Management System
 This library also comes with a built-in notification management system and can be utilized with `useMessage()` hook.

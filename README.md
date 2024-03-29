@@ -42,6 +42,18 @@ Native UI is a react native UI library that comes with themed components built o
 ### Notification Management System
 This library also comes with a built-in notification management system and can be utilized with `useMessage()` hook.
 This system uses a message queue and shows notifications one after another using Toasts (can be modified to use custom render method)
+```
+import { useMessage } from 'react-native-native-ui';
+
+function Component(props)
+{
+    const { showMessage } = useMessage();
+
+    useEffect(() => {
+        showMessage({ title: 'Message title', text: 'Message body', status: 'error', duration: 2000 });
+    }, []);
+}
+```
 
 ### Colors
 This project uses the following color scheme to perform all styling:
@@ -50,13 +62,13 @@ This project uses the following color scheme to perform all styling:
 - 5 shades of white to black (white, light, grey, dark, black)
 
 To override the colors simply import the Colors variable in your index file and edit the values as follows:
-`
+```
 import { Colors } from 'react-native-native-ui';
 
 Colors.primary = 'blue';
 Colors.secondary = 'red';
 Colors.tertiary = 'purple';
-`
+```
 
 ### Authors
 Sainath Ganesh - @furyswordxd

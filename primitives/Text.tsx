@@ -1,36 +1,54 @@
 import React from "react";
-import { Text as DefaultText, TextStyle, TextProps, Platform } from "react-native";
+import { Text as DefaultText, TextStyle, TextProps } from "react-native";
 import Colors from "../Colors";
+import Theme from "../Theme";
 
 interface Props extends TextProps {
     variant?: 'default' | 'heading' | 'key' | 'subtitle' | 'primary' | 'error';
     style?: TextStyle;
 }
 
+Theme.Text = {
+    style: {
+        fontSize: 13,
+        fontWeight: '500',
+    },
+    variants: {
+        'heading': {
+            color: Colors.black,
+            fontWeight: '600',
+            fontSize: 20,
+        },
+        'key': {
+            color: Colors.dark,
+            fontWeight: '600',
+            fontSize: 15,
+        },
+        'subtitle': {
+            color: Colors.grey,
+            fontSize: 13
+        },
+        'error': {
+            color: Colors.grey,
+            fontSize: 13
+        },
+        'default': {
+            color: Colors.dark,
+            fontSize: 13
+        },
+    }
+};
+
 export default function Text({ variant = 'default', style, children, ...props }: Props)
 {
-    const variantStyle: TextStyle = {};
-    switch (variant) {
-        case 'heading':
-            variantStyle.color = Colors.black;
-            variantStyle.fontWeight = '600';
-            variantStyle.fontSize = 20;
-            break;
-        case 'key':
-            variantStyle.color = Colors.dark;
-            variantStyle.fontWeight = '600';
-            variantStyle.fontSize = 15;
-            break;
-        case 'subtitle':
-            variantStyle.color = Colors.grey;
-            break;
-        case 'error':
-            variantStyle.color = Colors.error;
-            break;
-        default:
-            variantStyle.color = Colors.dark;
-            break;
-    }
-
-    return <DefaultText style={{ fontSize: 13, fontWeight: '500', ...variantStyle, ...style }} {...props}>{children}</DefaultText>
+    return <DefaultText
+        style={{
+            ...evaluateStyle(Theme.Text.style)(),
+            ...evaluateStyle(Theme.Text.variants[variant])(),
+            ...style
+        }}
+        {...props}
+    >
+        {children}
+    </DefaultText>;
 }

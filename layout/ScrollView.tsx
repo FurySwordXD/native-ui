@@ -1,18 +1,25 @@
 import React from "react";
-import { ScrollView, ScrollViewProps, ViewStyle } from "react-native";
+import { ScrollView as DefaultScrollView, ScrollViewProps, ViewStyle } from "react-native";
 
 interface Props extends ScrollViewProps {
     contentContainerStyle?: ViewStyle;
 }
 
-export default function CustomScrollView({ contentContainerStyle, children, ...props }: Props)
+export default function ScrollView({
+    contentContainerStyle,
+    keyboardDismissMode = 'interactive',
+    keyboardShouldPersistTaps = 'handled',
+    scrollIndicatorInsets = { right: 1 },
+    children,
+    ...props
+}: Props)
 {
-    return <ScrollView {...props}
+    return <DefaultScrollView {...props}
         contentContainerStyle={{ alignItems: 'center', minHeight: '100%', flexGrow: 1, ...contentContainerStyle }}
-        keyboardDismissMode="interactive"
-        keyboardShouldPersistTaps="handled"
-        scrollIndicatorInsets={{ right: 1 }}
+        keyboardDismissMode={keyboardDismissMode}
+        keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+        scrollIndicatorInsets={scrollIndicatorInsets}
     >
         {children}
-    </ScrollView>;
+    </DefaultScrollView>;
 }

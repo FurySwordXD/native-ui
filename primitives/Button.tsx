@@ -2,6 +2,7 @@ import React from "react";
 import { Platform, Pressable, PressableProps, ViewStyle } from "react-native";
 import Colors from "../Colors";
 import Text from "./Text";
+import Theme from "../Theme";
 
 interface Props extends PressableProps {
     color?: keyof typeof Colors;
@@ -14,49 +15,64 @@ interface Props extends PressableProps {
     children?: React.ReactNode;
 }
 
+const shadowConfig = {
+    elevation: 3,
+    shadowColor: 'black',
+    shadowOpacity: 0.15,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 10,
+};
+
+Theme.Button = {
+    style: {
+        flexDirection: 'row',
+        userSelect: Platform.OS == 'web' ? 'none' : undefined,
+        alignItems: 'center', justifyContent: 'center',
+        gap: 10, borderRadius: 10,
+    },
+    variants: {
+        'solid': ({ color, disableShadow }: Props) => ({
+            paddingVertical: 12,
+            paddingHorizontal: 24,
+            backgroundColor: Colors[color],
+            ...(!disableShadow && shadowConfig)
+        }),
+        'outline': ({ color }: { color: Color }) => ({
+            paddingVertical: 12,
+            paddingHorizontal: 24,
+            borderWidth: 1,
+            borderColor: Colors[color],
+        }),
+        'link': {}
+    }
+};
+
+
+
 export default function Button({ variant = 'solid', color = 'primary', disableShadow = false, title, style, leftElement, rightElement, children, ...props }: Props)
 {
-    const shadowConfig = !disableShadow && {
-        elevation: 3,
-        shadowColor: 'black',
-        shadowOpacity: 0.15,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 10,
-    };
-
-    return <Pressable {...props} style={({ pressed }) => ({
-            flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-            gap: 10, borderRadius: 10,
-            userSelect: Platform.OS == 'web' && 'none',
+    return <Pressable {...props}
+        style={({ pressed }) => ({
 
             transform: [{ scale: pressed ? 0.97 : 1 }],
             opacity: pressed ? 0.5 : 1,
 
-            ...(variant != 'link' && {
-                paddingVertical: 12, paddingHorizontal: 24,
-            }),
+            ...evaluateStyle(Theme.Button.style)({ variant, color, disableShadow }),
+            ...evaluateStyle(Theme.Button.variants[variant])({ variant, color, disableShadow }),
 
-            ...(variant == 'solid' && {
-                backgroundColor: Colors[color],
-                ...shadowConfig,
-            }),
-
-            ...(variant == 'outline' && {
-                borderColor: Colors[color], borderWidth: 1,
-            }),
-
-            ...style,
+            ...style
         })}
     >
         <>
         {leftElement}
-        {title && <Text
-            style={{
+        {title &&
+        <Text style={{
                 fontSize: 15,
                 ...(variant == 'solid' && { color: (color == 'light' || color == 'white') ? Colors.dark : Colors.white }),
                 ...(variant != 'solid' && { color: Colors[color] }),
-            }}>
-                {title}
+            }}
+        >
+            {title}
         </Text>}
         {rightElement}
         {children}

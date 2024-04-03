@@ -6,6 +6,7 @@ import Colors from "../Colors";
 import Text from "./Text";
 
 interface Props extends TextInputProps {
+    label?: string;
     leftElement?: React.JSX.Element;
     rightElement?: React.JSX.Element;
     style?: TextStyle;
@@ -19,7 +20,7 @@ if (Platform.OS == 'web')
 	document.head.append(style);
 }
 
-export default function Input({ leftElement, rightElement, style, error, ...props }: Props)
+export default function Input({ label, leftElement, rightElement, style, error, ...props }: Props)
 {
     const [isFocused, setFocused] = useState(false);
     const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -32,7 +33,9 @@ export default function Input({ leftElement, rightElement, style, error, ...prop
         setFocused(false);
     }
 
-    return <View>
+    return (
+    <View>
+        {label && <Text variant='subtitle'>{label}</Text>}
         <HStack space={10} style={{
             borderWidth: 1, paddingHorizontal: 10, alignItems: 'center',
             borderRadius: 10,
@@ -49,5 +52,6 @@ export default function Input({ leftElement, rightElement, style, error, ...prop
             {rightElement}
         </HStack>
         {error && <Text variant="error" style={{ padding: 5 }}>{error}</Text>}
-    </View>;
+    </View>
+    );
 }

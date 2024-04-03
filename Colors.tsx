@@ -16,4 +16,8 @@ const Colors = {
     warning: '#F97316',
 }
 
+declare global {
+    type Color = keyof typeof Colors;
+}
+
 export default Colors;

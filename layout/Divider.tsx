@@ -1,8 +1,14 @@
 import React from "react";
+import { ViewStyle } from "react-native";
 import View from "./View";
 import Colors from "../Colors";
 
-export default function Divider()
+interface Props
 {
-    return <View style={{ height: 1, backgroundColor: `${Colors.grey}75`, marginTop: 5, marginBottom: 15 }} />;
+    style?: ViewStyle;
+}
+
+export default function Divider({ style }: Props)
+{
+    return <View style={{ height: 1, backgroundColor: `${Colors.grey}75`, marginTop: 5, marginBottom: 15, ...style }} />;
 }

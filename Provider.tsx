@@ -45,9 +45,12 @@ export function UIProvider({ children }: Props)
 
     return <>
         {children}
-        {currentMessage != null && <Animatable.View animation={'fadeInDown'} style={{ position: 'absolute' }}>
-            {currentMessage != null && (currentMessage.render?.(dismissMessage) ||
-                <Toast message={currentMessage} onClose={dismissMessage} />)}
+        {currentMessage != null && <Animatable.View
+            animation={currentMessage.animation || 'fadeInDown'}
+            style={{ position: 'absolute' }}
+        >
+            {currentMessage.render?.(dismissMessage) ||
+            <Toast message={currentMessage} onClose={dismissMessage} />}
         </Animatable.View>}
     </>;
 }

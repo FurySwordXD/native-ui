@@ -37,12 +37,16 @@ Theme.Button = {
             backgroundColor: Colors[color],
             ...(!disableShadow && shadowConfig)
         }),
-        'outline': ({ color }: { color: Color }) => ({
+        'outline': ({ color }: Props) => ({
             paddingVertical: 12,
             paddingHorizontal: 24,
             borderWidth: 1,
             borderColor: Colors[color],
         }),
+        'ghost': {
+            paddingVertical: 12,
+            paddingHorizontal: 24,
+        },
         'link': {}
     }
 };

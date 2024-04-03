@@ -29,25 +29,23 @@ Theme.Button = {
         userSelect: Platform.OS == 'web' ? 'none' : undefined,
         alignItems: 'center', justifyContent: 'center',
         gap: 10, borderRadius: 10,
+        paddingVertical: 12,
+        paddingHorizontal: 24,
     },
     variants: {
         'solid': ({ color, disableShadow }: Props) => ({
-            paddingVertical: 12,
-            paddingHorizontal: 24,
             backgroundColor: Colors[color],
             ...(!disableShadow && shadowConfig)
         }),
         'outline': ({ color }: Props) => ({
-            paddingVertical: 12,
-            paddingHorizontal: 24,
             borderWidth: 1,
             borderColor: Colors[color],
         }),
-        'ghost': {
-            paddingVertical: 12,
-            paddingHorizontal: 24,
-        },
-        'link': {}
+        'ghost': {},
+        'link': {
+            paddingVertical: undefined,
+            paddingHorizontal: undefined,
+        }
     }
 };
 

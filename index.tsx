@@ -30,3 +30,4 @@ export { UIProvider, useMessage } from './Provider';
 
 // Constants
 export { default as Colors } from './Colors';
+export { default as Theme } from './Theme';

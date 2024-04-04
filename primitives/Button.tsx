@@ -25,14 +25,9 @@ const shadowConfig = {
 
 Theme.Button = {
     style: {
-        flexDirection: 'row',
-        userSelect: Platform.OS == 'web' ? 'none' : undefined,
-        alignItems: 'center', justifyContent: 'center',
-        gap: 10, borderRadius: 10,
-        paddingVertical: 12,
-        paddingHorizontal: 24,
+
     },
-    variants: {
+    variantsWithProps: {
         'solid': ({ color, disableShadow }: Props) => ({
             backgroundColor: Colors[color],
             ...(!disableShadow && shadowConfig)
@@ -41,11 +36,11 @@ Theme.Button = {
             borderWidth: 1,
             borderColor: Colors[color],
         }),
-        'ghost': {},
-        'link': {
+        'ghost': () => ({}),
+        'link': () => ({
             paddingVertical: undefined,
             paddingHorizontal: undefined,
-        }
+        })
     }
 };
 
@@ -55,12 +50,21 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
 {
     return <Pressable {...props}
         style={({ pressed }) => ({
+            flexDirection: 'row',
+            userSelect: Platform.OS == 'web' ? 'none' : undefined,
+            alignItems: 'center', justifyContent: 'center',
+            gap: 10, borderRadius: 10,
+            paddingVertical: 12,
+            paddingHorizontal: 24,
 
             transform: [{ scale: pressed ? 0.97 : 1 }],
             opacity: pressed ? 0.5 : 1,
 
-            ...evaluateStyle(Theme.Button.style)({ variant, color, disableShadow }),
-            ...evaluateStyle(Theme.Button.variants[variant])({ variant, color, disableShadow }),
+            ...Theme.Button.styleWithProps?.({ variant, color, disableShadow }),
+            ...Theme.Button.style,
+
+            ...Theme.Button.variantsWithProps[variant]?.({ variant, color, disableShadow }),
+            ...Theme.Button.variants[variant],
 
             ...style
         })}

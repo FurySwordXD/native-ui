@@ -4,6 +4,7 @@ import HStack from "../layout/HStack";
 import View from "../layout/View";
 import Colors from "../Colors";
 import Text from "./Text";
+import Theme from "../Theme";
 
 interface Props extends TextInputProps {
     label?: string;
@@ -38,14 +39,22 @@ export default function Input({ label, leftElement, rightElement, style, error, 
         {label && <Text variant='subtitle'>{label}</Text>}
         <HStack space={10} style={{
             borderWidth: 1, paddingHorizontal: 10, alignItems: 'center',
-            borderRadius: 10,
+            borderRadius: 10, height: 50,
             borderColor: isFocused ? `${Colors.primary}50` : Colors.background,
             backgroundColor: isFocused && `${Colors.primary}20`,
         }}>
             {leftElement}
             <TextInput {...props}
                 placeholderTextColor={Colors.grey}
-                style={{ flex: 1, height: 50, paddingVertical: 10, color: Colors.dark, ...style }}
+                style={{
+                    flex: 1, height: '100%',
+                    paddingVertical: 10,
+                    color: Colors.dark,
+
+                    ...Theme.Input.style,
+
+                    ...style
+                }}
                 onFocus={onFocus}
                 onBlur={onBlur}
             />

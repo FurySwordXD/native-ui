@@ -30,11 +30,9 @@ Theme.Text = {
         },
         'error': {
             color: Colors.grey,
-            fontSize: 13
         },
         'default': {
             color: Colors.dark,
-            fontSize: 13
         },
     }
 };
@@ -43,8 +41,13 @@ export default function Text({ variant = 'default', style, children, ...props }:
 {
     return <DefaultText
         style={{
-            ...evaluateStyle(Theme.Text.style)(),
-            ...evaluateStyle(Theme.Text.variants[variant])(),
+
+            ...Theme.Button.styleWithProps?.({ variant }),
+            ...Theme.Text.style,
+
+            ...Theme.Text.variantsWithProps[variant]?.({ variant }),
+            ...Theme.Text.variants[variant],
+
             ...style
         }}
         {...props}

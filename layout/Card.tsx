@@ -1,10 +1,19 @@
 import React from "react";
 import { View, ViewProps, ViewStyle } from "react-native";
 import Colors from "../Colors";
+import Theme from "../Theme";
 
 interface Props extends ViewProps {
     style?: ViewStyle;
 }
+
+Theme.Card = {
+    style: {
+        backgroundColor: Colors.white,
+        borderRadius: 10,
+        padding: 20,
+    }
+};
 
 export default function Card({ style, children, ...props }: Props)
 {
@@ -18,8 +27,8 @@ export default function Card({ style, children, ...props }: Props)
 
     return <View {...props}
         style={{
-            backgroundColor: Colors.white, borderRadius: 10,
-            padding: 20,
+
+            ...Theme.Card.style,
             // ...shadowConfig,
             ...style
         }}

@@ -1,9 +1,18 @@
 import React from "react";
 import { ScrollView as DefaultScrollView, ScrollViewProps, ViewStyle } from "react-native";
+import Theme from "../Theme";
 
 interface Props extends ScrollViewProps {
     contentContainerStyle?: ViewStyle;
 }
+
+Theme.ScrollView = {
+    style: {
+        alignItems: 'center',
+        minHeight: '100%',
+        flexGrow: 1
+    }
+};
 
 export default function ScrollView({
     contentContainerStyle,
@@ -15,7 +24,7 @@ export default function ScrollView({
 }: Props)
 {
     return <DefaultScrollView {...props}
-        contentContainerStyle={{ alignItems: 'center', minHeight: '100%', flexGrow: 1, ...contentContainerStyle }}
+        contentContainerStyle={{ ...Theme.ScrollView.style, ...contentContainerStyle }}
         keyboardDismissMode={keyboardDismissMode}
         keyboardShouldPersistTaps={keyboardShouldPersistTaps}
         scrollIndicatorInsets={scrollIndicatorInsets}

@@ -1,26 +1,23 @@
-import { TextStyle, ViewStyle } from "react-native";
+import { ImageStyle, TextStyle, ViewStyle } from "react-native";
 
-type Style = TextStyle | ViewStyle;
+type Style = TextStyle | ViewStyle | ImageStyle;
 type FunctionalStyle = (props?: any) => Style;
 
-function evaluateStyle(style: FunctionalStyle | Style) {
-    return typeof style === 'function' ? style : () => style;
-};
+declare global {
 
-declare global
-{
-    var evaluateStyle: (style: FunctionalStyle | Style) => FunctionalStyle;
-}
-globalThis.evaluateStyle = evaluateStyle;
-
-
-interface ThemeType {
-    [component: string]: {
-        style?: FunctionalStyle | Style;
-        variants?: {
-            [variant: string]: FunctionalStyle | Style;
+    interface ThemeType {
+        [component: string]: {
+            style?: Style;
+            styleWithProps?: FunctionalStyle;
+            variants?: {
+                [variant: string]: Style;
+            }
+            variantsWithProps?: {
+                [variant: string]: FunctionalStyle;
+            }
         }
     }
+
 }
 
 const Theme: ThemeType = {};

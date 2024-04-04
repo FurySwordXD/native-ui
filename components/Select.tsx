@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pressable, FlatList } from 'react-native';
+import { Pressable, FlatList, DimensionValue } from 'react-native';
 import Modal from '../layout/Modal';
 import Input from '../primitives/Input';
 import Icon from '../primitives/Icon';
@@ -17,9 +17,10 @@ interface Props {
     onChange?(value: string): void;
     items: SelectItem[];
     placeholder?: string;
+    maxHeight?: DimensionValue;
 }
 
-export default function Select({ value, onChange, items, placeholder }: Props)
+export default function Select({ value, onChange, items, placeholder, maxHeight = '35%' }: Props)
 {
     const [visible, setVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState<SelectItem>(items.find(i => i.value == value));
@@ -27,7 +28,7 @@ export default function Select({ value, onChange, items, placeholder }: Props)
     return (
         <>
         <Modal visible={visible} onRequestClose={() => setVisible(false)}>
-            <View style={{ position: 'absolute', bottom: 0, backgroundColor: 'white', maxHeight: '35%' }}>
+            <View style={{ position: 'absolute', bottom: 0, backgroundColor: 'white', maxHeight }}>
                 <FlatList
                     data={items}
                     keyExtractor={item => item?.key || item.value}

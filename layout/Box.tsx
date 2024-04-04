@@ -1,9 +1,17 @@
 import React from "react";
-import { View, ViewProps } from "react-native";
+import { View, ViewProps, ViewStyle } from "react-native";
+import Theme from "../Theme";
 
-export default function Box({ children, ...props }: ViewProps)
+interface Props extends ViewProps
 {
-    return <View {...props}>
+    style?: ViewStyle;
+}
+
+Theme.Box = {}
+
+export default function Box({ children, style, ...props }: Props)
+{
+    return <View {...props} style={{ ...Theme.Box.style, ...style }}>
         {children}
     </View>;
 }

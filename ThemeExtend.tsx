@@ -11,17 +11,25 @@ function extendTheme(theme: ThemeType)
         const styleWithProps = value.styleWithProps || currentComponent.styleWithProps;
 
         const variants = currentComponent.variants;
-        Object.entries(value.variants).forEach(([variantName, style]) => {
-            variants[variantName] = {
-                ...currentComponent.variants[variantName],
-                ...style
-            };
-        });
+        if (value.variants)
+        {
+            Object.entries(value.variants).forEach(([variantName, style]) => {
+                variants[variantName] = {
+                    ...currentComponent.variants[variantName],
+                    ...style
+                };
+            });
+        }
+
 
         const variantsWithProps = currentComponent.variantsWithProps;
-        Object.entries(value.variantsWithProps).forEach(([variantName, functionalStyle]) => {
-            variantsWithProps[variantName] = functionalStyle;
-        });
+        if (value.variantsWithProps)
+        {
+            Object.entries(value.variantsWithProps).forEach(([variantName, functionalStyle]) => {
+                variantsWithProps[variantName] = functionalStyle;
+            });
+        }
+
 
         Theme[component] = {
             style: {

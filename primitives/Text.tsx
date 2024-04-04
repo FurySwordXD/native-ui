@@ -29,7 +29,7 @@ Theme.Text = {
             fontSize: 13
         },
         'error': {
-            color: Colors.grey,
+            color: Colors.error,
         },
         'default': {
             color: Colors.dark,

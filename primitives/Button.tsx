@@ -63,8 +63,8 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
             ...Theme.Button.styleWithProps?.({ variant, color, disableShadow }),
             ...Theme.Button.style,
 
-            ...Theme.Button.variantsWithProps[variant]?.({ variant, color, disableShadow }),
-            ...Theme.Button.variants[variant],
+            ...Theme.Button.variantsWithProps?.[variant]?.({ variant, color, disableShadow }),
+            ...Theme.Button.variants?.[variant],
 
             ...style
         })}

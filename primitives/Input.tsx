@@ -21,6 +21,8 @@ if (Platform.OS == 'web')
 	document.head.append(style);
 }
 
+Theme.Input = {};
+
 export default function Input({ label, leftElement, rightElement, style, error, ...props }: Props)
 {
     const [isFocused, setFocused] = useState(false);

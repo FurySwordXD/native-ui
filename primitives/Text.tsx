@@ -45,8 +45,8 @@ export default function Text({ variant = 'default', style, children, ...props }:
             ...Theme.Button.styleWithProps?.({ variant }),
             ...Theme.Text.style,
 
-            ...Theme.Text.variantsWithProps[variant]?.({ variant }),
-            ...Theme.Text.variants[variant],
+            ...Theme.Text.variantsWithProps?.[variant]?.({ variant }),
+            ...Theme.Text.variants?.[variant],
 
             ...style
         }}

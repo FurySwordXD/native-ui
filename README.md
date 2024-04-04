@@ -140,6 +140,30 @@ Colors.secondary = 'red';
 Colors.tertiary = 'purple';
 ```
 
+### Extending the Theme
+In your App file import `extendTheme()` and define the overrides to each individual component as follows
+```
+import { extendTheme } from 'native-ui';
+
+extendTheme({
+	Button: {
+		style: {
+			borderRadius: 25
+		},
+		variants: {
+			'ghost': {
+				paddingVertical: 20
+			}
+		}
+	},
+	Input: {
+		style: {
+			color: 'black',
+		}
+	}
+});
+```
+
 ### Authors
 Sainath Ganesh - @furyswordxd
 

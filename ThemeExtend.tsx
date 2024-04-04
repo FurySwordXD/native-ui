@@ -10,19 +10,19 @@ function extendTheme(theme: ThemeType)
 
         const styleWithProps = value.styleWithProps || currentComponent.styleWithProps;
 
-        const variants = currentComponent.variants;
+        const variants = currentComponent.variants || {};
         if (value.variants)
         {
             Object.entries(value.variants).forEach(([variantName, style]) => {
                 variants[variantName] = {
-                    ...currentComponent.variants?.[variantName],
+                    ...variants[variantName],
                     ...style
                 };
             });
         }
 
 
-        const variantsWithProps = currentComponent.variantsWithProps;
+        const variantsWithProps = currentComponent.variantsWithProps || {};
         if (value.variantsWithProps)
         {
             Object.entries(value.variantsWithProps).forEach(([variantName, functionalStyle]) => {

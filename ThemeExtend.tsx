@@ -15,7 +15,7 @@ function extendTheme(theme: ThemeType)
         {
             Object.entries(value.variants).forEach(([variantName, style]) => {
                 variants[variantName] = {
-                    ...currentComponent.variants[variantName],
+                    ...currentComponent.variants?.[variantName],
                     ...style
                 };
             });

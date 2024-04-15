@@ -2,8 +2,10 @@ import React, { useEffect, useRef } from "react";
 import { hookstate, useHookstate } from '@hookstate/core';
 import Toast from "./components/Toast";
 import * as Animatable from "react-native-animatable";
+import useCurrentLocale from "./Localization";
 
 interface Props {
+    defaultLocale: string;
     children?: React.JSX.Element | React.JSX.Element[];
 }
 
@@ -26,10 +28,15 @@ export function useMessage()
     return { currentMessage, showMessage, dismissMessage };
 }
 
-export function UIProvider({ children }: Props)
+export function UIProvider({ defaultLocale = 'en', children }: Props)
 {
     const { currentMessage, dismissMessage } = useMessage();
+    const currentLocale = useCurrentLocale();
     const timerHandle = useRef<number>();
+
+    useEffect(() => {
+        currentLocale.set(defaultLocale);
+    }, []);
 
     useEffect(() => {
         if (timerHandle.current)

@@ -2,6 +2,11 @@ import React from "react";
 import { Text as DefaultText, TextStyle, TextProps } from "react-native";
 import Colors from "../Colors";
 import Theme from "../Theme";
+import useCurrentLocale from "../Localization";
+
+interface Props {
+    children?: string | React.JSX.Element | React.JSX.Element[];
+}
 
 interface Props extends TextProps {
     variant?: 'default' | 'heading' | 'key' | 'subtitle' | 'primary' | 'error';
@@ -37,8 +42,19 @@ Theme.Text = {
     }
 };
 
+
 export default function Text({ variant = 'default', style, children, ...props }: Props)
 {
+    const currentLocale = useCurrentLocale().get();
+
+    if (typeof children == 'string')
+    {
+        if (LOCALIZED_STRINGS[children]?.[currentLocale])
+        {
+            children = LOCALIZED_STRINGS[children][currentLocale];
+        }
+    }
+
     return <DefaultText
         style={{
 

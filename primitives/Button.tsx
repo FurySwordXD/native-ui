@@ -12,7 +12,7 @@ interface Props extends PressableProps {
     style?: ViewStyle;
     leftElement?: React.JSX.Element;
     rightElement?: React.JSX.Element;
-    children?: React.ReactNode;
+    children?: string | React.JSX.Element;
 }
 
 const shadowConfig = {

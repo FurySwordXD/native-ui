@@ -32,3 +32,4 @@ export { UIProvider, useMessage } from './Provider';
 export { default as Colors } from './Colors';
 export { default as Theme } from './Theme';
 export { default as extendTheme } from './ThemeExtend';
+export { default as useCurrentLocale } from './Localization';

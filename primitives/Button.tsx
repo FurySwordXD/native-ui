@@ -54,8 +54,8 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
             userSelect: Platform.OS == 'web' ? 'none' : undefined,
             alignItems: 'center', justifyContent: 'center',
             gap: 10, borderRadius: 10,
-            paddingVertical: 12,
-            paddingHorizontal: 24,
+            paddingVertical: 10,
+            paddingHorizontal: 20,
 
             transform: [{ scale: pressed ? 0.97 : 1 }],
             opacity: pressed ? 0.5 : 1,
@@ -73,7 +73,7 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
         {leftElement}
         {(title || typeof children == 'string')  &&
         <Text style={{
-                fontSize: 15,
+                fontSize: 14,
                 ...(variant == 'solid' && { color: (color == 'light' || color == 'white') ? Colors.dark : Colors.white }),
                 ...(variant != 'solid' && { color: Colors[color] }),
             }}

@@ -15,7 +15,7 @@ interface Props extends TextProps {
 
 Theme.Text = {
     style: {
-        fontSize: 13,
+        fontSize: 12,
         fontWeight: '500',
     },
     variants: {
@@ -27,11 +27,10 @@ Theme.Text = {
         'key': {
             color: Colors.dark,
             fontWeight: '600',
-            fontSize: 15,
+            fontSize: 14,
         },
         'subtitle': {
             color: Colors.grey,
-            fontSize: 13
         },
         'error': {
             color: Colors.error,

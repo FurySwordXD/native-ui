@@ -5,7 +5,7 @@ import Theme from "../Theme";
 import useCurrentLocale from "../Localization";
 
 interface Props {
-    children?: string | React.JSX.Element | React.JSX.Element[];
+    children?: string | React.JSX.Element | (string | React.JSX.Element)[];
 }
 
 interface Props extends TextProps {

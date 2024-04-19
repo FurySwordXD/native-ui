@@ -1,8 +1,9 @@
 import React from "react";
-import { Platform, Pressable, PressableProps, ViewStyle } from "react-native";
+import { Platform, Pressable, PressableProps, ViewStyle, StyleSheet } from "react-native";
 import Colors from "../Colors";
 import Text from "./Text";
 import Theme from "../Theme";
+import View from "../layout/View";
 
 interface Props extends PressableProps {
     color?: keyof typeof Colors;
@@ -82,6 +83,7 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
         </Text>}
         {rightElement}
         {typeof children != 'string' && children}
+        {props.disabled && <View style={{ ...StyleSheet.absoluteFillObject, width: '200%', height: '200%', backgroundColor: '#FFFFFF50' }} />}
         </>
     </Pressable>;
 }

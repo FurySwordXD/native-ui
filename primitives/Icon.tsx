@@ -13,7 +13,7 @@ import Colors from "../Colors";
 
 interface Props  {
     name: string;
-    type?: 'AntDesign' | 'Fontisto' | 'Material' | 'MaterialCommunity' | 'Entypo' | 'FontAwesome5' ;
+    type?: 'AntDesign' | 'Fontisto' | 'Material' | 'MaterialCommunity' | 'Entypo' | 'FontAwesome5';
     size?: number;
     color?: string;
 }

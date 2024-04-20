@@ -9,7 +9,7 @@ interface Props extends ViewProps {
 
 Theme.VStack = {};
 
-export default function VStack({ style, space = 30, children, ...props }: Props)
+export default function VStack({ style, space = 15, children, ...props }: Props)
 {
     return <View {...props} style={{ flexDirection: 'column', rowGap: space, ...Theme.VStack.style, ...style }}>
         {children}

@@ -13,7 +13,7 @@ Theme.Divider = {
     style: {
         height: 1,
         backgroundColor: `${Colors.grey}75`,
-        marginTop: 5, marginBottom: 15,
+        marginTop: 5, marginBottom: 5,
     }
 }
 

@@ -15,7 +15,7 @@ export function useMessage()
 {
     const messageQueue = useHookstate(messageQueueState);
 
-    const currentMessage = messageQueue.get()[0];
+    const currentMessage = messageQueue.get({ noproxy: true })[0];
 
     const showMessage = (message: Message) => {
         messageQueue.set(q => { q.push(message); return q; });

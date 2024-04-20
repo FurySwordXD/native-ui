@@ -11,7 +11,7 @@ Theme.VStack = {};
 
 export default function VStack({ style, space = 30, children, ...props }: Props)
 {
-    return <View {...props} style={{ flexDirection: 'column', gap: space, ...Theme.VStack.style, ...style }}>
+    return <View {...props} style={{ flexDirection: 'column', rowGap: space, ...Theme.VStack.style, ...style }}>
         {children}
     </View>;
 }

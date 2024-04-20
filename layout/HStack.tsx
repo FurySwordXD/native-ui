@@ -15,7 +15,7 @@ Theme.HStack = {
 
 export default function HStack({ style, space = 15, children, ...props }: Props)
 {
-    return <View {...props} style={{ flexDirection: 'row', gap: space, ...Theme.HStack.style, ...style }}>
+    return <View {...props} style={{ flexDirection: 'row', columnGap: space, ...Theme.HStack.style, ...style }}>
         {children}
     </View>;
 }

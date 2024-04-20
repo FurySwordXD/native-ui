@@ -51,7 +51,7 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
 {
     return <Pressable {...props}
         style={({ pressed }) => ({
-            flexDirection: 'row',
+            flexDirection: 'row', overflow: 'hidden',
             userSelect: Platform.OS == 'web' ? 'none' : undefined,
             alignItems: 'center', justifyContent: 'center',
             gap: 10, borderRadius: 10,

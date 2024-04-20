@@ -83,7 +83,7 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
         </Text>}
         {rightElement}
         {typeof children != 'string' && children}
-        {props.disabled && <View style={{ ...StyleSheet.absoluteFillObject, width: '200%', height: '200%', backgroundColor: '#FFFFFF50' }} />}
+        {props.disabled && <View style={{ ...StyleSheet.absoluteFillObject, width: '1000%', height: '1000%', backgroundColor: '#FFFFFF50' }} />}
         </>
     </Pressable>;
 }

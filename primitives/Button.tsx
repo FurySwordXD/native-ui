@@ -75,7 +75,6 @@ export default function Button({ variant = 'solid', color = 'primary', disableSh
         {(title || typeof children == 'string')  &&
         <Text variant="key"
             style={{
-                flex: 1, textAlign: 'center',
                 ...(variant == 'solid' && { color: (color == 'light' || color == 'white') ? Colors.dark : Colors.white }),
                 ...(variant != 'solid' && { color: Colors[color] }),
             }}

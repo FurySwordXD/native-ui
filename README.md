@@ -24,6 +24,7 @@ function App({ children, ...props })
 }
 ```
 - Start using the various components
+![Alt text](./example.png?raw=true "Title")
 ```
 import { View, VStack, Button, HStack, Icon, Input, Text,
     Card, Colors, Divider, UIProvider, useMessage, Select, Radio } from 'react-native-native-ui';

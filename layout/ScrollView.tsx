@@ -3,6 +3,7 @@ import { ScrollView as DefaultScrollView, ScrollViewProps, ViewStyle } from "rea
 import Theme from "../Theme";
 
 interface Props extends ScrollViewProps {
+    ref?: React.LegacyRef<DefaultScrollView>;
     contentContainerStyle?: ViewStyle;
 }
 
@@ -15,6 +16,7 @@ Theme.ScrollView = {
 };
 
 export default function ScrollView({
+    ref,
     contentContainerStyle,
     keyboardDismissMode = 'interactive',
     keyboardShouldPersistTaps = 'handled',
@@ -24,6 +26,7 @@ export default function ScrollView({
 }: Props)
 {
     return <DefaultScrollView {...props}
+        ref={ref}
         contentContainerStyle={{ ...Theme.ScrollView.style, ...contentContainerStyle }}
         keyboardDismissMode={keyboardDismissMode}
         keyboardShouldPersistTaps={keyboardShouldPersistTaps}

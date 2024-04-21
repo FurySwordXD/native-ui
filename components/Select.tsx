@@ -43,7 +43,7 @@ export default function Select({ value, onChange, items, placeholder, maxHeight 
             </View>
         </Modal>
         <Pressable onPress={()=>setVisible(true)}>
-            <Input placeholder={placeholder} readOnly={true} value={selectedItem.label} rightElement={<Icon name="chevron-down" />} />
+            <Input placeholder={placeholder} readOnly={true} value={selectedItem.label || ""} rightElement={<Icon name="chevron-down" />} />
         </Pressable>
         </>
     )

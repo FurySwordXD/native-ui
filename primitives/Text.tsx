@@ -4,8 +4,9 @@ import Colors from "../Colors";
 import Theme from "../Theme";
 import useCurrentLocale from "../Localization";
 
+type ChildType = string | number | React.JSX.Element;
 interface Props {
-    children?: string | React.JSX.Element | (string | React.JSX.Element)[];
+    children?: ChildType | ChildType[];
 }
 
 interface Props extends TextProps {

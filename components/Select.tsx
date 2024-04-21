@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pressable, FlatList, DimensionValue } from 'react-native';
 import Modal from '../layout/Modal';
 import Input from '../primitives/Input';
@@ -23,7 +23,12 @@ interface Props {
 export default function Select({ value, onChange, items, placeholder, maxHeight = '35%' }: Props)
 {
     const [visible, setVisible] = useState(false);
-    const [selectedItem, setSelectedItem] = useState<SelectItem>(items.find(i => i.value == value));
+    const [selectedItem, setSelectedItem] = useState<SelectItem>();
+
+    useEffect(() => {
+        if (value)
+            setSelectedItem(items.find(item => item.value == value));
+    }, [value]);
 
     return (
         <>

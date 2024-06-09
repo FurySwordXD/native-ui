@@ -12,6 +12,7 @@ interface Props extends TextInputProps {
     rightElement?: React.JSX.Element;
     style?: TextStyle;
     error?: string;
+    disabled?: boolean;
 }
 
 if (Platform.OS == 'web')
@@ -23,7 +24,7 @@ if (Platform.OS == 'web')
 
 Theme.Input = {};
 
-export default function Input({ label, leftElement, rightElement, style, error, ...props }: Props)
+export default function Input({ label, leftElement, rightElement, style, error, disabled, ...props }: Props)
 {
     const [isFocused, setFocused] = useState(false);
     const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -57,6 +58,7 @@ export default function Input({ label, leftElement, rightElement, style, error, 
 
                     ...style
                 }}
+                readOnly={disabled}
                 onFocus={onFocus}
                 onBlur={onBlur}
             />

@@ -61,6 +61,7 @@ export default function Input({ label, leftElement, rightElement, style, error, 
                 readOnly={disabled}
                 onFocus={onFocus}
                 onBlur={onBlur}
+                returnKeyType={props.returnKeyType || 'done'}
             />
             {rightElement}
         </HStack>

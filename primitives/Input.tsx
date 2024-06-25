@@ -24,7 +24,7 @@ if (Platform.OS == 'web')
 
 Theme.Input = {};
 
-export default function Input({ label, leftElement, rightElement, style, error, disabled, ...props }: Props)
+export default function Input({ label, leftElement, rightElement, style, error, disabled, returnKeyType, ...props }: Props)
 {
     const [isFocused, setFocused] = useState(false);
     const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -61,7 +61,7 @@ export default function Input({ label, leftElement, rightElement, style, error, 
                 readOnly={disabled}
                 onFocus={onFocus}
                 onBlur={onBlur}
-                returnKeyType={props.returnKeyType || 'done'}
+                returnKeyType={returnKeyType || 'done'}
             />
             {rightElement}
         </HStack>

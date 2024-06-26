@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, ScrollView, Keyboard } from 'react-native';
+import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps } from 'react-native';
 
-interface Props
+interface Props extends ScrollViewProps
 {
     children: React.ReactNode;
     spacing?: number;
     padding?: number;
+    style?: ViewStyle;
+    contentContainerStyle?: ViewStyle;
 }
 
-export default function KeyboardAvoidView({ children, spacing = 0, padding = 0 }: Props)
+export default function KeyboardAvoidScrollView({ children, style, contentContainerStyle, refreshControl, spacing = 0, padding = 0, ...props }: Props)
 {
     const [keyboardHeight, setKeyboardHeight] = useState(0);
     const [offset, setOffset] = useState(0);
@@ -30,17 +32,16 @@ export default function KeyboardAvoidView({ children, spacing = 0, padding = 0 }
     }, [padding, spacing]);
 
     return (
-        <SafeAreaView style={{ marginBottom: keyboardHeight != 0 ? keyboardHeight : 0 }}>
+        <SafeAreaView style={{ ...style, marginBottom: keyboardHeight != 0 ? keyboardHeight : 0 }}>
 		<ScrollView
+            refreshControl={refreshControl}
             contentInset={{ bottom: offset }}
-            nestedScrollEnabled={false}
-            scrollsToTop={false}
             automaticallyAdjustKeyboardInsets={true}
-            bounces={false}
-            contentContainerStyle={{ flexGrow: 1 }}
+            contentContainerStyle={{ flexGrow: 1, ...contentContainerStyle }}
             keyboardShouldPersistTaps='handled'
+            {...props}
         >
-        <View style={{ flex: 1 }}>
+        <View style={{ flexGrow: 1 }}>
 			{children}
         </View>
         </ScrollView>

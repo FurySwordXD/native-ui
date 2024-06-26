@@ -2,7 +2,7 @@
 export { default as View } from './layout/View';
 export { default as ScrollView } from './layout/ScrollView';
 export { default as Box } from './layout/Box';
-export { default as KeyboardAvoidView } from './layout/KeyboardAvoidView';
+export { default as KeyboardAvoidScrollView } from './layout/KeyboardAvoidScrollView';
 export { default as HStack } from './layout/HStack';
 export { default as VStack } from './layout/VStack';
 export { default as Card } from './layout/Card';

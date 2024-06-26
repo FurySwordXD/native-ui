@@ -6,7 +6,7 @@ import useCurrentLocale from "../Localization";
 
 type ChildType = string | number | React.JSX.Element;
 interface Props {
-    children?: ChildType | ChildType[];
+    children?: React.ReactNode;
 }
 
 interface Props extends TextProps {

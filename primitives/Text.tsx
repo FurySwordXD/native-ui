@@ -4,7 +4,6 @@ import Colors from "../Colors";
 import Theme from "../Theme";
 import useCurrentLocale from "../Localization";
 
-type ChildType = string | number | React.JSX.Element;
 interface Props {
     children?: React.ReactNode;
 }
@@ -16,7 +15,7 @@ interface Props extends TextProps {
 
 Theme.Text = {
     style: {
-        fontSize: 12,
+        fontSize: 13,
         fontWeight: '500',
     },
     variants: {

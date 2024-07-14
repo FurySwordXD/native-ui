@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, EmitterSubscription } from 'react-native';
+import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, EmitterSubscription, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 
 interface Props extends ScrollViewProps
 {
+    dismissKeyboardOnScroll?: boolean;
     shouldSetHeight?: boolean;
     children: React.ReactNode;
     spacing?: number;
@@ -11,10 +12,11 @@ interface Props extends ScrollViewProps
     contentContainerStyle?: ViewStyle;
 }
 
-export default function KeyboardAvoidScrollView({ children, style, shouldSetHeight = false, contentContainerStyle, spacing = 0, padding = 0, ...props }: Props)
+export default function KeyboardAvoidScrollView({ children, style, dismissKeyboardOnScroll = true, shouldSetHeight = false, contentContainerStyle, spacing = 0, padding = 0, ...props }: Props)
 {
     const [keyboardHeight, setKeyboardHeight] = useState(0);
     const [offset, setOffset] = useState(0);
+    let scrollY = useRef(0).current;
     let scrollviewHeight = useRef<number>().current;
     const scrollviewRef = useRef<ScrollView>();
 
@@ -58,11 +60,21 @@ export default function KeyboardAvoidScrollView({ children, style, shouldSetHeig
         }
     }, [padding, spacing]);
 
+
+    const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+        if (dismissKeyboardOnScroll && scrollY - e.nativeEvent.contentOffset.y > 50)
+        {
+            Keyboard.dismiss();
+        }
+        scrollY = e.nativeEvent.contentOffset.y;
+    }
+
     return (
         <SafeAreaView style={{ ...style, marginBottom: keyboardHeight != 0 ? keyboardHeight : 0 }}>
 		<ScrollView
             ref={scrollviewRef}
             onContentSizeChange={(w, h) => { scrollviewHeight = h; }}
+            onScroll={onScroll}
             contentInset={{ bottom: offset }}
             contentContainerStyle={{
                 flexGrow: 1, ...contentContainerStyle,

@@ -70,7 +70,7 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
     }
 
     return (
-        <SafeAreaView style={{ ...style, marginBottom: keyboardHeight != 0 ? keyboardHeight : 0 }}>
+        <SafeAreaView style={{ flex: 1, ...style, marginBottom: keyboardHeight != 0 ? keyboardHeight : 0 }}>
 		<ScrollView
             ref={scrollviewRef}
             onContentSizeChange={(w, h) => { scrollviewHeight = h; }}

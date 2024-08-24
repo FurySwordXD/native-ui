@@ -3,6 +3,7 @@ import { hookstate, useHookstate } from '@hookstate/core';
 import Toast from "./components/Toast";
 import * as Animatable from "react-native-animatable";
 import useCurrentLocale from "./Localization";
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 interface Props {
     defaultLocale: string;
@@ -50,14 +51,16 @@ export function UIProvider({ defaultLocale = 'en', children }: Props)
         }
     }, [currentMessage]);
 
-    return <>
-        {children}
-        {currentMessage != null && <Animatable.View
-            animation={currentMessage.animation || 'fadeInDown'}
-            style={{ position: 'absolute' }}
-        >
-            {currentMessage.render?.(dismissMessage) ||
-            <Toast message={currentMessage} onClose={dismissMessage} />}
-        </Animatable.View>}
-    </>;
+    return (
+        <SafeAreaProvider>
+            {children}
+            {currentMessage != null && <Animatable.View
+                animation={currentMessage.animation || 'fadeInDown'}
+                style={{ position: 'absolute' }}
+            >
+                {currentMessage.render?.(dismissMessage) ||
+                <Toast message={currentMessage} onClose={dismissMessage} />}
+            </Animatable.View>}
+        </SafeAreaProvider>
+    );
 }

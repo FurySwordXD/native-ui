@@ -8,6 +8,7 @@ export { default as VStack } from './layout/VStack';
 export { default as Card } from './layout/Card';
 export { default as Divider } from './layout/Divider';
 export { default as Modal } from './layout/Modal';
+export { SafeAreaView as SafeAreaView } from 'react-native';
 
 // Primitives
 export { default as Text } from './primitives/Text';
@@ -35,4 +36,3 @@ export { default as Theme } from './Theme';
 export { default as extendTheme } from './ThemeExtend';
 export { default as useCurrentLocale } from './Localization';
 
-export { SafeAreaView as SafeAreaView } from 'react-native-safe-area-context';

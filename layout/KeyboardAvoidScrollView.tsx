@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, EmitterSubscription, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, EmitterSubscription, NativeScrollEvent, NativeSyntheticEvent, AppState } from 'react-native';
 
 interface Props extends ScrollViewProps
 {
@@ -7,75 +7,78 @@ interface Props extends ScrollViewProps
     shouldSetHeight?: boolean;
     children: React.ReactNode;
     spacing?: number;
-    padding?: number;
     style?: ViewStyle;
     contentContainerStyle?: ViewStyle;
 }
 
-export default function KeyboardAvoidScrollView({ children, style, dismissKeyboardOnScroll = true, shouldSetHeight = false, contentContainerStyle, spacing = 0, padding = 0, ...props }: Props)
+export default function KeyboardAvoidScrollView({ children, style, dismissKeyboardOnScroll = true, shouldSetHeight = false, spacing = 0, contentContainerStyle, ...props }: Props)
 {
-    const [keyboardHeight, setKeyboardHeight] = useState(0);
-    const [offset, setOffset] = useState(0);
-    let scrollY = useRef(0).current;
-    let scrollviewHeight = useRef<number>().current;
+    const [keyboardHeightState, setKeyboardHeightState] = useState(0);
+    const scrollY = useRef(0);
+    const keyboardHeight = useRef<number>(0);
+    const scrollviewHeight = useRef<number>(0);
     const scrollviewRef = useRef<ScrollView>();
 
     useEffect(() => {
-        let keyboardShowListener: EmitterSubscription;
-        let keyboadDidChangeFrameListener: EmitterSubscription;
-
-        if (Platform.OS === 'ios')
-        {
-            keyboardShowListener = Keyboard.addListener('keyboardWillShow', (e) => {
-                setKeyboardHeight(e.endCoordinates.height + padding);
-                setOffset(spacing);
-            });
-            keyboadDidChangeFrameListener = Keyboard.addListener('keyboardDidChangeFrame', (e) => {
-                setOffset(0);
-            });
-        }
-        else
-        {
-            keyboardShowListener = Keyboard.addListener('keyboardDidShow', (e) => {
-                const keyboardHeight = e.endCoordinates.height;
-                if (shouldSetHeight)
-                    setKeyboardHeight(keyboardHeight + padding);
-                TextInput.State.currentlyFocusedInput().measureLayout(scrollviewRef.current as any,
-                (x, y, width, height) => {
-                    const scrollpoint = y + height - scrollviewHeight + keyboardHeight + spacing + 100;
-                    scrollviewRef.current.scrollTo({ y: scrollpoint, animated: true });
-                });
-            });
-        }
+        const keyboardShowListener = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow', (e) => {
+            keyboardHeight.current = e.endCoordinates.height;
+            if (Platform.OS === 'ios' || shouldSetHeight)
+            {
+                setKeyboardHeightState(keyboardHeight.current);
+            }
+        });
 
         const keyboardHideListener = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide', () => {
-            setKeyboardHeight(0);
-            setOffset(0);
+            keyboardHeight.current = 0;
+            setKeyboardHeightState(0);
         });
 
         return () => {
             keyboardShowListener.remove();
-            keyboadDidChangeFrameListener?.remove();
             keyboardHideListener.remove();
         }
-    }, [padding, spacing]);
+    }, [spacing]);
+
+    const scrollpoint = useRef<number>(0);
+    const onFocus = () => {
+        const input = TextInput.State.currentlyFocusedInput();
+        if (!input || keyboardHeight.current < 1)
+            return;
+
+        input.measureLayout(scrollviewRef.current as any,
+            (x, y, width, height) => {
+            const newY = y + height - scrollviewHeight.current + keyboardHeight.current + spacing + 100;
+            if (Math.abs(scrollpoint.current - newY) > 10)
+            {
+                scrollviewRef.current.scrollTo({ y: newY, animated: true });
+                scrollpoint.current = newY;
+            }
+        });
+    }
+
+    useEffect(() => {
+        const handle = setInterval(onFocus, 100);
+        return () => { clearInterval(handle); }
+    }, []);
 
 
     const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-        if (dismissKeyboardOnScroll && scrollY - e.nativeEvent.contentOffset.y > 50)
+        if (dismissKeyboardOnScroll && scrollY.current - e.nativeEvent.contentOffset.y > 50)
         {
             Keyboard.dismiss();
         }
-        scrollY = e.nativeEvent.contentOffset.y;
+        scrollY.current = e.nativeEvent.contentOffset.y;
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, ...style, marginBottom: keyboardHeight != 0 ? keyboardHeight : 0 }}>
+        <SafeAreaView style={{ flex: 1, ...style,
+            marginBottom: keyboardHeightState != 0 ? keyboardHeightState : 0
+        }}
+        >
 		<ScrollView
             ref={scrollviewRef}
-            onContentSizeChange={(w, h) => { scrollviewHeight = h; }}
+            onContentSizeChange={(w, h) => { scrollviewHeight.current = h; }}
             onScroll={onScroll}
-            contentInset={{ bottom: offset }}
             contentContainerStyle={{
                 flexGrow: 1, ...contentContainerStyle,
             }}

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, EmitterSubscription, NativeScrollEvent, NativeSyntheticEvent, AppState } from 'react-native';
+import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, EmitterSubscription, NativeScrollEvent, NativeSyntheticEvent, AppState, Dimensions } from 'react-native';
 
 interface Props extends ScrollViewProps
 {
@@ -15,18 +15,13 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
     const [keyboardHeightState, setKeyboardHeightState] = useState(0);
     const scrollY = useRef(0);
     const keyboardHeight = useRef<number>(0);
-    const scrollviewHeight = useRef<number>(0);
     const scrollviewRef = useRef<ScrollView>();
 
     useEffect(() => {
         const keyboardShowListener = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow', (e) => {
             keyboardHeight.current = e.endCoordinates.height;
             if (Platform.OS === 'ios') {
-                setTimeout(onFocus, 100);
                 setKeyboardHeightState(keyboardHeight.current);
-            }
-            else {
-                onFocus();
             }
         });
 
@@ -41,18 +36,17 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
         }
     }, [spacing]);
 
+    const screenHeight = Dimensions.get('window').height;
+
     const scrollpoint = useRef<number>(0);
     const onFocus = () => {
         const input = TextInput.State.currentlyFocusedInput();
         if (!input || keyboardHeight.current < 1)
             return;
 
-        input.measureLayout(scrollviewRef.current as any,
-            (x, y, width, height) => {
-            const newY = Math.min(
-                y + height - scrollviewHeight.current + keyboardHeight.current + spacing + 100,
-                scrollviewHeight.current);
-            if (Math.abs(scrollpoint.current - newY) > 10)
+        input.measureLayout(scrollviewRef.current as any, (x, y, width, height) => {
+            const newY = y + height - screenHeight + keyboardHeight.current + spacing;
+            if (Math.abs(scrollpoint.current - newY) > 1)
             {
                 scrollviewRef.current.scrollTo({ y: newY, animated: true });
                 scrollpoint.current = newY;
@@ -68,6 +62,11 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
         scrollY.current = e.nativeEvent.contentOffset.y;
     }
 
+    useEffect(() => {
+        const handle = setInterval(onFocus, 100);
+        return () => { clearInterval(handle); }
+    }, []);
+
     return (
         <SafeAreaView
             style={{
@@ -77,11 +76,8 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
         >
 		<ScrollView
             ref={scrollviewRef}
-            onContentSizeChange={(w, h) => { scrollviewHeight.current = h; }}
             onScroll={onScroll}
-            contentContainerStyle={{
-                flexGrow: 1, ...contentContainerStyle,
-            }}
+            contentContainerStyle={{ flexGrow: 1, ...contentContainerStyle }}
             keyboardShouldPersistTaps='handled'
             {...props}
         >

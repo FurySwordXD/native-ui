@@ -7,12 +7,13 @@ import Text from "../primitives/Text";
 interface Props  {
     label?: string;
     value?: boolean;
+    color?: string;
     onChange?: (v: boolean) => void;
     isDisabled?: boolean;
     children?: React.JSX.Element;
 }
 
-export default function Checkbox({ label, value = false, onChange, isDisabled, children } : Props)
+export default function Checkbox({ label, value = false, color, onChange, isDisabled, children } : Props)
 {
     const [checked, setChecked] = useState(value);
 
@@ -30,7 +31,7 @@ export default function Checkbox({ label, value = false, onChange, isDisabled, c
     return (
         <Button variant="ghost" disabled={isDisabled} onPress={onPress}>
             <HStack>
-                <Icon size={24} name={checked ? 'checkbox-marked' : 'checkbox-blank-outline'} />
+                <Icon size={24} color={color} name={checked ? 'checkbox-marked' : 'checkbox-blank-outline'} />
                 {label && <Text>{label}</Text>}
                 {children}
             </HStack>

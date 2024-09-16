@@ -4,14 +4,13 @@ import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, P
 interface Props extends ScrollViewProps
 {
     dismissKeyboardOnScroll?: boolean;
-    shouldSetHeight?: boolean;
     children: React.ReactNode;
     spacing?: number;
     style?: ViewStyle;
     contentContainerStyle?: ViewStyle;
 }
 
-export default function KeyboardAvoidScrollView({ children, style, dismissKeyboardOnScroll = true, shouldSetHeight = false, spacing = 0, contentContainerStyle, ...props }: Props)
+export default function KeyboardAvoidScrollView({ children, style, dismissKeyboardOnScroll = true, spacing = 0, contentContainerStyle, ...props }: Props)
 {
     const [keyboardHeightState, setKeyboardHeightState] = useState(0);
     const scrollY = useRef(0);
@@ -22,9 +21,12 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
     useEffect(() => {
         const keyboardShowListener = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow', (e) => {
             keyboardHeight.current = e.endCoordinates.height;
-            if (Platform.OS === 'ios' || shouldSetHeight)
-            {
+            if (Platform.OS === 'ios') {
+                setTimeout(onFocus, 100);
                 setKeyboardHeightState(keyboardHeight.current);
+            }
+            else {
+                onFocus();
             }
         });
 
@@ -47,7 +49,9 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
 
         input.measureLayout(scrollviewRef.current as any,
             (x, y, width, height) => {
-            const newY = y + height - scrollviewHeight.current + keyboardHeight.current + spacing + 100;
+            const newY = Math.min(
+                y + height - scrollviewHeight.current + keyboardHeight.current + spacing + 100,
+                scrollviewHeight.current);
             if (Math.abs(scrollpoint.current - newY) > 10)
             {
                 scrollviewRef.current.scrollTo({ y: newY, animated: true });
@@ -55,12 +59,6 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
             }
         });
     }
-
-    useEffect(() => {
-        const handle = setInterval(onFocus, 100);
-        return () => { clearInterval(handle); }
-    }, []);
-
 
     const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
         if (dismissKeyboardOnScroll && scrollY.current - e.nativeEvent.contentOffset.y > 50)
@@ -71,9 +69,11 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, ...style,
-            marginBottom: keyboardHeightState != 0 ? keyboardHeightState : 0
-        }}
+        <SafeAreaView
+            style={{
+                flex: 1, ...style,
+                marginBottom: keyboardHeightState,
+            }}
         >
 		<ScrollView
             ref={scrollviewRef}

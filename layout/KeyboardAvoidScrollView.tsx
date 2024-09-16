@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, EmitterSubscription, NativeScrollEvent, NativeSyntheticEvent, AppState, Dimensions } from 'react-native';
+import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, EmitterSubscription, NativeScrollEvent, NativeSyntheticEvent, AppState, Dimensions, useWindowDimensions } from 'react-native';
 
 interface Props extends ScrollViewProps
 {
@@ -36,13 +36,14 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
         }
     }, [spacing]);
 
-    const screenHeight = Dimensions.get('window').height;
+    const screenHeight = useWindowDimensions().height;
 
     const scrollpoint = useRef<number>(0);
     const onFocus = () => {
         const input = TextInput.State.currentlyFocusedInput();
-        if (!input || keyboardHeight.current < 1)
+        if (!input || keyboardHeight.current < 1 || !Keyboard.isVisible()) {
             return;
+        }
 
         input.measureLayout(scrollviewRef.current as any, (x, y, width, height) => {
             const newY = y + height - screenHeight + keyboardHeight.current + spacing;
@@ -62,10 +63,10 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
         scrollY.current = e.nativeEvent.contentOffset.y;
     }
 
-    // useEffect(() => {
-    //     const handle = setInterval(onFocus, 100);
-    //     return () => { clearInterval(handle); }
-    // }, []);
+    useEffect(() => {
+        const handle = setInterval(onFocus, 100);
+        return () => { clearInterval(handle); }
+    }, []);
 
     return (
         <SafeAreaView
@@ -77,6 +78,7 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
 		<ScrollView
             ref={scrollviewRef}
             onScroll={onScroll}
+            scrollEnabled={true}
             contentContainerStyle={{ flexGrow: 1, ...contentContainerStyle }}
             keyboardShouldPersistTaps='handled'
             {...props}

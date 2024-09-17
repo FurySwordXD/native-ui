@@ -64,6 +64,8 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
     }
 
     useEffect(() => {
+        if (Platform.OS == 'web') return;
+
         const handle = setInterval(onFocus, 100);
         return () => { clearInterval(handle); }
     }, []);

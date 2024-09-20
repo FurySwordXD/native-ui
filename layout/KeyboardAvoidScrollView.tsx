@@ -37,7 +37,6 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
     const onFocus = () => {
         const input = TextInput.State.currentlyFocusedInput();
         input.measureLayout(scrollviewRef.current as any, (x, y, width, height) => {
-            console.log(screenHeight, keyboardHeight);
             const newY = y + height - screenHeight + keyboardHeight + spacing;
             scrollviewRef.current.scrollTo({ y: newY, animated: true })
         });

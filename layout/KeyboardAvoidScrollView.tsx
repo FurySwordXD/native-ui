@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, EmitterSubscription, NativeScrollEvent, NativeSyntheticEvent, AppState, Dimensions, useWindowDimensions } from 'react-native';
+import { useFocusedInput } from '../Provider';
 
 interface Props extends ScrollViewProps
 {
@@ -63,12 +64,12 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
         scrollY.current = e.nativeEvent.contentOffset.y;
     }
 
-    // useEffect(() => {
-    //     if (Platform.OS == 'web') return;
+    const { focusedInput } = useFocusedInput();
 
-    //     const handle = setInterval(onFocus, 100);
-    //     return () => { clearInterval(handle); }
-    // }, []);
+    useEffect(() => {
+        if (Platform.OS == 'web' || !focusedInput) return;
+        onFocus();
+    }, [focusedInput]);
 
     return (
         <SafeAreaView

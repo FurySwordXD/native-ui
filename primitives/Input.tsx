@@ -5,6 +5,7 @@ import View from "../layout/View";
 import Colors from "../Colors";
 import Text from "./Text";
 import Theme from "../Theme";
+import { useFocusedInput } from "../Provider";
 
 interface Props extends TextInputProps {
     label?: string;
@@ -26,14 +27,17 @@ Theme.Input = {};
 
 export default function Input({ label, leftElement, rightElement, style, error, disabled, returnKeyType, ...props }: Props)
 {
+    const { setFocusedInput } = useFocusedInput();
     const [isFocused, setFocused] = useState(false);
     const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         props.onFocus?.(e);
+        setFocusedInput(e.currentTarget);
         setFocused(true);
     }
 
     const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         props.onBlur?.(e);
+        setFocusedInput(null);
         setFocused(false);
     }
 

@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { hookstate, useHookstate } from '@hookstate/core';
+import { HostComponent } from "react-native";
+import { hookstate, useHookstate, State } from '@hookstate/core';
 import Toast from "./components/Toast";
 import * as Animatable from "react-native-animatable";
 import useCurrentLocale from "./Localization";
+import Input from "./primitives/Input";
 
 interface Props {
     defaultLocale: string;
@@ -10,6 +12,13 @@ interface Props {
 }
 
 const messageQueueState = hookstate<Message[], {}>([]);
+const focusedInputState = hookstate(null) as State<React.ElementRef<HostComponent<typeof Input>>>;
+
+export function useFocusedInput()
+{
+    const focusedInput = useHookstate(focusedInputState);
+    return { focusedInput: focusedInput.get(), setFocusedInput: focusedInput.set };
+}
 
 export function useMessage()
 {

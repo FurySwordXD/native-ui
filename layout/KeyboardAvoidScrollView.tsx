@@ -63,12 +63,12 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
         scrollY.current = e.nativeEvent.contentOffset.y;
     }
 
-    useEffect(() => {
-        if (Platform.OS == 'web') return;
+    // useEffect(() => {
+    //     if (Platform.OS == 'web') return;
 
-        const handle = setInterval(onFocus, 100);
-        return () => { clearInterval(handle); }
-    }, []);
+    //     const handle = setInterval(onFocus, 100);
+    //     return () => { clearInterval(handle); }
+    // }, []);
 
     return (
         <SafeAreaView

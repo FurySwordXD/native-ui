@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { forwardRef, useState, MutableRefObject } from "react";
 import { Platform, TextInput, TextInputProps, TextStyle, NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
 import HStack from "../layout/HStack";
 import View from "../layout/View";
@@ -8,6 +8,7 @@ import Theme from "../Theme";
 import { useFocusedInput } from "../Provider";
 
 interface Props extends TextInputProps {
+    ref?: MutableRefObject<TextInput>;
     label?: string;
     leftElement?: React.JSX.Element;
     rightElement?: React.JSX.Element;
@@ -25,9 +26,13 @@ if (Platform.OS == 'web')
 
 Theme.Input = {};
 
-export default function Input({ label, leftElement, rightElement, style, error, disabled, returnKeyType, ...props }: Props)
-{
+export default forwardRef(
+function Input(
+    { label, leftElement, rightElement, style, error, disabled, returnKeyType, ...props }: Props,
+    ref: React.ForwardedRef<TextInput>) {
+
     const { setFocusedInput } = useFocusedInput();
+
     const [isFocused, setFocused] = useState(false);
     const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         props.onFocus?.(e);
@@ -51,7 +56,9 @@ export default function Input({ label, leftElement, rightElement, style, error, 
             backgroundColor: isFocused && `${Colors.primary}20`,
         }}>
             {leftElement}
-            <TextInput {...props}
+            <TextInput
+                ref={ref}
+                {...props}
                 placeholderTextColor={Colors.grey}
                 style={{
                     flex: 1, height: '100%',
@@ -72,4 +79,4 @@ export default function Input({ label, leftElement, rightElement, style, error, 
         {error && <Text variant="error" style={{ padding: 5 }}>{error}</Text>}
     </View>
     );
-}
+});

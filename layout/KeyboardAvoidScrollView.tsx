@@ -5,13 +5,14 @@ import { useFocusedInput } from '../Provider';
 interface Props extends ScrollViewProps
 {
     dismissKeyboardOnScroll?: boolean;
+    scrollToInputOnFocus?: boolean;
     children: React.ReactNode;
     spacing?: number;
     style?: ViewStyle;
     contentContainerStyle?: ViewStyle;
 }
 
-export default function KeyboardAvoidScrollView({ children, style, dismissKeyboardOnScroll = true, spacing = 0, contentContainerStyle, ...props }: Props)
+export default function KeyboardAvoidScrollView({ children, style, dismissKeyboardOnScroll = true, scrollToInputOnFocus = true, spacing = 0, contentContainerStyle, ...props }: Props)
 {
     const [keyboardHeight, setKeyboardHeight] = useState(0);
     const scrollY = useRef(0);
@@ -35,6 +36,9 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
     const screenHeight = useWindowDimensions().height;
 
     const onFocus = () => {
+        if (!scrollToInputOnFocus)
+            return;
+
         const input = TextInput.State.currentlyFocusedInput();
         input?.measureLayout(scrollviewRef.current as any, (x, y, width, height) => {
             const newY = y + height - screenHeight + keyboardHeight + spacing;

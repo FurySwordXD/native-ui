@@ -16,7 +16,7 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
 {
     const [keyboardHeight, setKeyboardHeight] = useState(0);
     const scrollY = useRef(0);
-    const scrollviewRef = useRef<ScrollView>();
+    const scrollviewRef = useRef<ScrollView>(null);
 
     useEffect(() => {
         const keyboardShowListener = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow', (e) => {

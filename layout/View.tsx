@@ -9,7 +9,7 @@ interface Props extends ViewProps {
 export default function View({ style, children, ...props }: Props) {
     const { theme } = useComponentTheme('View');
 
-    return <DefaultView {...props} style={{ ...theme.View.style, ...style }}>
+    return <DefaultView {...props} style={{ ...theme.style, ...style }}>
         {children}
     </DefaultView>;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Text as DefaultText, TextStyle, TextProps } from "react-native";
 import Colors from "../Colors";
-import Theme from "../Theme";
+import { useComponentTheme } from "../Theme";
 import useCurrentLocale from "../Localization";
 
 interface Props {
@@ -13,43 +13,12 @@ interface Props extends TextProps {
     style?: TextStyle;
 }
 
-Theme.Text = {
-    style: {
-        fontSize: 13,
-        fontWeight: '500',
-    },
-    variants: {
-        'heading': {
-            color: Colors.black,
-            fontWeight: '600',
-            fontSize: 20,
-        },
-        'key': {
-            color: Colors.dark,
-            fontWeight: '600',
-            fontSize: 14,
-        },
-        'subtitle': {
-            color: Colors.grey,
-        },
-        'error': {
-            color: Colors.error,
-        },
-        'default': {
-            color: Colors.dark,
-        },
-    }
-};
-
-
-export default function Text({ variant = 'default', style, children, ...props }: Props)
-{
+export default function Text({ variant = 'default', style, children, ...props }: Props) {
+    const { theme } = useComponentTheme('Text');
     const currentLocale = useCurrentLocale().get();
 
-    if (typeof children == 'string')
-    {
-        if (LOCALIZED_STRINGS[children]?.[currentLocale])
-        {
+    if (typeof children == 'string') {
+        if (LOCALIZED_STRINGS[children]?.[currentLocale]) {
             children = LOCALIZED_STRINGS[children][currentLocale];
         }
     }
@@ -57,11 +26,11 @@ export default function Text({ variant = 'default', style, children, ...props }:
     return <DefaultText
         style={{
 
-            ...Theme.Button.styleWithProps?.({ variant }),
-            ...Theme.Text.style,
+            ...theme.styleWithProps?.({ variant }),
+            ...theme.style,
 
-            ...Theme.Text.variantsWithProps?.[variant]?.({ variant }),
-            ...Theme.Text.variants?.[variant],
+            ...theme.variantsWithProps?.[variant]?.({ variant }),
+            ...theme.variants?.[variant],
 
             ...style
         }}

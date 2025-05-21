@@ -8,6 +8,7 @@ export { default as VStack } from './layout/VStack';
 export { default as Card } from './layout/Card';
 export { default as Divider } from './layout/Divider';
 export { default as Modal } from './layout/Modal';
+export { FlatList as FlatList } from 'react-native';
 export { SafeAreaView as SafeAreaView } from 'react-native';
 
 // Primitives
@@ -32,7 +33,6 @@ export { UIProvider, useMessage } from './Provider';
 
 // Constants
 export { default as Colors } from './Colors';
-export { default as Theme } from './Theme';
-export { default as extendTheme } from './ThemeExtend';
+export { useTheme, useComponentTheme } from './Theme';
 export { default as useCurrentLocale } from './Localization';
 

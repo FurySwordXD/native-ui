@@ -1,14 +1,14 @@
-import React, { forwardRef, useState, MutableRefObject } from "react";
+import React, { forwardRef, useState, RefObject } from "react";
 import { Platform, TextInput, TextInputProps, TextStyle, NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
 import HStack from "../layout/HStack";
 import View from "../layout/View";
 import Colors from "../Colors";
 import Text from "./Text";
-import Theme from "../Theme";
+import { useComponentTheme } from "../Theme";
 import { useFocusedInput } from "../Provider";
 
 interface Props extends TextInputProps {
-    ref?: MutableRefObject<TextInput>;
+    ref?: RefObject<TextInput>;
     label?: string;
     leftElement?: React.JSX.Element;
     rightElement?: React.JSX.Element;
@@ -17,26 +17,23 @@ interface Props extends TextInputProps {
     disabled?: boolean;
 }
 
-if (Platform.OS == 'web')
-{
+if (Platform.OS == 'web') {
     const style = document.createElement('style')
-	style.textContent = `textarea, select, input, button { outline: none! important; }`
-	document.head.append(style);
+    style.textContent = `textarea, select, input, button { outline: none! important; }`
+    document.head.append(style);
 }
 
-Theme.Input = {};
-
-export default forwardRef(
-function Input(
+export default forwardRef(function Input(
     { label, leftElement, rightElement, style, error, disabled, returnKeyType, ...props }: Props,
     ref: React.ForwardedRef<TextInput>) {
 
+    const { theme } = useComponentTheme('Input');
     const { setFocusedInput } = useFocusedInput();
 
     const [isFocused, setFocused] = useState(false);
     const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         props.onFocus?.(e);
-        setFocusedInput(e.currentTarget);
+        setFocusedInput(e.currentTarget as any);
         setFocused(true);
     }
 
@@ -47,36 +44,36 @@ function Input(
     }
 
     return (
-    <View>
-        {label && <Text variant='subtitle'>{label}</Text>}
-        <HStack space={10} style={{
-            borderWidth: 1, paddingHorizontal: 10, alignItems: 'center',
-            borderRadius: 10, height: 50,
-            borderColor: isFocused ? `${Colors.primary}50` : Colors.background,
-            backgroundColor: isFocused && `${Colors.primary}20`,
-        }}>
-            {leftElement}
-            <TextInput
-                ref={ref}
-                {...props}
-                placeholderTextColor={Colors.grey}
-                style={{
-                    flex: 1, height: '100%',
-                    paddingVertical: 10,
-                    color: Colors.dark,
+        <View>
+            {label && <Text variant='subtitle'>{label}</Text>}
+            <HStack space={10} style={{
+                borderWidth: 1, paddingHorizontal: 10, alignItems: 'center',
+                borderRadius: 10, height: 50,
+                borderColor: isFocused ? `${Colors.primary}50` : Colors.background,
+                backgroundColor: isFocused && `${Colors.primary}20`,
+            }}>
+                {leftElement}
+                <TextInput
+                    ref={ref}
+                    {...props}
+                    placeholderTextColor={Colors.grey}
+                    style={{
+                        flex: 1, height: '100%',
+                        paddingVertical: 10,
+                        color: Colors.dark,
 
-                    ...Theme.Input.style,
+                        ...theme.style,
 
-                    ...style
-                }}
-                readOnly={disabled}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                returnKeyType={returnKeyType || 'done'}
-            />
-            {rightElement}
-        </HStack>
-        {error && <Text variant="error" style={{ padding: 5 }}>{error}</Text>}
-    </View>
+                        ...style
+                    }}
+                    readOnly={disabled}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                    returnKeyType={returnKeyType || 'done'}
+                />
+                {rightElement}
+            </HStack>
+            {error && <Text variant="error" style={{ padding: 5 }}>{error}</Text>}
+        </View>
     );
 });

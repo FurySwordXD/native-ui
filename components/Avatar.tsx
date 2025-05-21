@@ -9,14 +9,13 @@ interface Props {
     source?: ImageURISource;
     alt?: string;
     size?: number;
-    color?: keyof typeof Colors;
+    color?: string;
 }
 
-export default function Avatar({ source, size = 50, color = 'primary', alt }: Props)
-{
+export default function Avatar({ source, size = 50, color = Colors.primary, alt }: Props) {
     return <Box style={{
         width: size, height: size, borderRadius: size,
-        backgroundColor: Colors[color], overflow: 'hidden',
+        backgroundColor: color, overflow: 'hidden',
         justifyContent: 'center', alignItems: 'center'
     }}>
         <Text style={{ fontSize: 18, fontWeight: '600', color: Colors.white }}>{alt}</Text>

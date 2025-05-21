@@ -6,15 +6,16 @@ import Button from "./Button";
 
 interface Props extends PressableProps {
     name: string;
-    color?: keyof typeof Colors;
-    type?: 'AntDesign' | 'Fontisto' | 'Material' | 'MaterialCommunity' | 'Entypo' | 'FontAwesome5' ;
+    color?: string;
+    type?: 'AntDesign' | 'Fontisto' | 'Material' | 'MaterialCommunity' | 'Entypo' | 'FontAwesome5' | 'Ionicons' | 'Zocial'
+    | 'EvilIcons' | 'Feather' | 'FontAwesome' | 'Foundation' | 'Octicons' | 'SimpleLineIcons';
     size?: number;
     style?: ViewStyle;
 }
 
-export default function IconButton({ name, type, size, color = 'dark', style, ...props }: Props)
-{
-    return <Button variant="link" style={{ padding: 10, ...style }} {...props}>
-        <Icon name={name} type={type} size={size} color={Colors[color]} />
-    </Button>
+export default function IconButton({ name, type, size, color = Colors.primary, style, ...props }: Props) {
+    return (
+        <Button variant="link" style={{ padding: 10, ...style }} {...props}>
+            <Icon name={name} type={type} size={size} color={color} />
+        </Button>);
 }

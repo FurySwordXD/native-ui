@@ -1,21 +1,15 @@
 import React from "react";
 import { View, ViewProps, ViewStyle } from "react-native";
-import Theme from "../Theme";
+import { useComponentTheme } from "../Theme";
 
 interface Props extends ViewProps {
     space?: number;
     style?: ViewStyle
 }
 
-Theme.HStack = {
-    style: {
-        alignItems: 'center'
-    }
-}
-
-export default function HStack({ style, space = 15, children, ...props }: Props)
-{
-    return <View {...props} style={{ flexDirection: 'row', columnGap: space, ...Theme.HStack.style, ...style }}>
+export default function HStack({ style, space = 15, children, ...props }: Props) {
+    const { theme } = useComponentTheme('HStack');
+    return <View {...props} style={{ flexDirection: 'row', columnGap: space, ...theme.style, ...style }}>
         {children}
     </View>;
 }

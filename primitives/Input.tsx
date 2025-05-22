@@ -56,11 +56,11 @@ export default forwardRef(function Input(
                 <TextInput
                     ref={ref}
                     {...props}
-                    placeholderTextColor={Colors.grey}
+                    placeholderTextColor={Colors.greyScale[2]}
                     style={{
                         flex: 1, height: '100%',
                         paddingVertical: 10,
-                        color: Colors.dark,
+                        color: Colors.greyScale[1],
 
                         ...theme.style,
 

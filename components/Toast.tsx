@@ -13,11 +13,10 @@ interface Props {
     onClose?: () => void;
 }
 
-export default function Toast({ message, onClose }: Props)
-{
+export default function Toast({ message, onClose }: Props) {
     const { id, title, text, status, duration = 5000 } = message;
 
-    let backgroundColor = Colors.dark;
+    let backgroundColor = Colors.greyScale[1];
     switch (status) {
         case 'info': backgroundColor = Colors.primary; break;
         case 'success': backgroundColor = Colors.success; break;
@@ -34,32 +33,32 @@ export default function Toast({ message, onClose }: Props)
 
     return (
         <View style={{
-                backgroundColor, overflow: 'hidden', width: windowSize.width,
-                position: 'absolute', transformOrigin: 'left top',
-                // top: Platform.OS == 'ios' ? -75 : -50,
-            }}
+            backgroundColor, overflow: 'hidden', width: windowSize.width,
+            position: 'absolute', transformOrigin: 'left top',
+            // top: Platform.OS == 'ios' ? -75 : -50,
+        }}
         >
-        <SafeAreaView>
-            <HStack style={{ paddingHorizontal: 10, paddingVertical: 5, width: '100%' }}>
-                <View style={{ flex: 1, justifyContent: 'center' }}>
-                    {title && <Text style={{ fontWeight: 'bold', color: 'white' }}>{title}</Text>}
-                    {text && <Text style={{ color: 'white' }}>{text}</Text>}
-                </View>
-                <Button variant='ghost' onPress={onClose}>
-                    <Icon name='close-circle-outline' color='white' />
-                </Button>
-            </HStack>
-            <Box style={{ backgroundColor: Colors.grey, height: 5 }}>
-                <Animated.View
-                    style={{
-                        backgroundColor: 'white',
-                        width: '100%', height: '100%',
-                        transformOrigin: 'left center',
-                        transform: [{ scaleX: progressAnim }]
-                    }}
-                />
-            </Box>
-        </SafeAreaView>
+            <SafeAreaView>
+                <HStack style={{ paddingHorizontal: 10, paddingVertical: 5, width: '100%' }}>
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
+                        {title && <Text style={{ fontWeight: 'bold', color: 'white' }}>{title}</Text>}
+                        {text && <Text style={{ color: 'white' }}>{text}</Text>}
+                    </View>
+                    <Button variant='ghost' onPress={onClose}>
+                        <Icon name='close-circle-outline' color='white' />
+                    </Button>
+                </HStack>
+                <Box style={{ backgroundColor: Colors.grey, height: 5 }}>
+                    <Animated.View
+                        style={{
+                            backgroundColor: 'white',
+                            width: '100%', height: '100%',
+                            transformOrigin: 'left center',
+                            transform: [{ scaleX: progressAnim }]
+                        }}
+                    />
+                </Box>
+            </SafeAreaView>
         </View>
     );
 }

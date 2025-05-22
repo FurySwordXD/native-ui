@@ -51,8 +51,7 @@ function getBaseTheme() {
         VStack: {},
         HStack: {
             style: {
-                alignItems: 'center',
-                width: '100%',
+                alignItems: 'center'
             }
         },
         ScrollView: {

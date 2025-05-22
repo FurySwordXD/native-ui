@@ -16,28 +16,31 @@ interface Props {
     onClose?: () => void;
 }
 
-export default function Accordion({ defaultIsOpen = false, title, content, onOpen, onClose } : Props)
-{
+export default function Accordion({ defaultIsOpen = false, title, content, onOpen, onClose }: Props) {
     const [isOpen, setIsOpen] = useState(defaultIsOpen);
+    const [showSpinner, setShowSpinner] = useState(true);
 
     useEffect(() => {
-        if (isOpen)
+        if (isOpen) {
             onOpen?.();
-        else
+
+        } else {
             onClose?.();
+            setShowSpinner(true);
+        }
     }, [isOpen]);
 
     return (
         <View>
-            <Button variant="link" onPress={()=>setIsOpen(o => !o)}>
+            <Button variant="link" onPress={() => setIsOpen(o => !o)}>
                 <HStack style={{ width: '100%', paddingRight: 10 }}>
                     <Box style={{ flex: 1 }}>{title}</Box>
                     <Icon name={isOpen ? 'chevron-up' : 'chevron-down'} />
                 </HStack>
             </Button>
             <View>
-                {isOpen && <OverlaySpinner style={{ backgroundColor: 'transparent', maxHeight: 300 }} />}
-                {isOpen && <Animatable.View animation={'fadeIn'} delay={1} duration={200} style={{ backgroundColor: 'white' }}>
+                {isOpen && showSpinner && <OverlaySpinner style={{ backgroundColor: 'transparent', maxHeight: 300 }} />}
+                {isOpen && <Animatable.View onLayout={() => setShowSpinner(false)} animation={'fadeIn'} duration={200}>
                     {content}
                 </Animatable.View>}
             </View>

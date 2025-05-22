@@ -55,7 +55,7 @@ export default function Button({ variant = 'solid', color = Colors.primary, text
                 </Text>}
             {typeof children != 'string' && children}
             {rightElement}
-            {props.disabled && <View style={{ ...StyleSheet.absoluteFillObject, width: '100%', height: '100%', backgroundColor: `${Colors.greyScale[4]}50` }} />}
+            {props.disabled && <View style={{ ...StyleSheet.absoluteFillObject, width: '1000%', height: '1000%', backgroundColor: `${Colors.greyScale[4]}50` }} />}
         </>
     </Pressable>;
 }

@@ -7,6 +7,7 @@ import View from "../layout/View";
 
 interface Props extends PressableProps {
     color?: string;
+    textColor?: string;
     variant?: 'solid' | 'outline' | 'ghost' | 'link';
     disableShadow?: boolean;
     title?: string;
@@ -17,7 +18,7 @@ interface Props extends PressableProps {
 }
 
 
-export default function Button({ variant = 'solid', color = Colors.primary, disableShadow = false, title, style, leftElement, rightElement, children, ...props }: Props) {
+export default function Button({ variant = 'solid', color = Colors.primary, textColor, disableShadow = false, title, style, leftElement, rightElement, children, ...props }: Props) {
     const { theme } = useComponentTheme('Button');
 
     return <Pressable {...props}
@@ -46,8 +47,8 @@ export default function Button({ variant = 'solid', color = Colors.primary, disa
             {(title || typeof children == 'string') &&
                 <Text variant="key"
                     style={{
-                        ...(variant == 'solid' && { color: [Colors.white, Colors.light].includes(color) ? Colors.dark : Colors.white }),
-                        ...(variant != 'solid' && { color }),
+                        ...(variant == 'solid' && { color: textColor || Colors.white }),
+                        ...(variant != 'solid' && { color: textColor || color }),
                     }}
                 >
                     {title || children}

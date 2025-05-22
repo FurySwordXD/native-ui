@@ -13,7 +13,7 @@ interface Props extends PressableProps {
     style?: ViewStyle;
 }
 
-export default function IconButton({ name, type, size, color = Colors.primary, style, ...props }: Props) {
+export default function IconButton({ name, type, size, color = Colors.greyScale[1], style, ...props }: Props) {
     return (
         <Button variant="link" style={{ padding: 10, ...style }} {...props}>
             <Icon name={name} type={type} size={size} color={color} />

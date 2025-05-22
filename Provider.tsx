@@ -13,14 +13,12 @@ interface Props {
 const messageQueueState = hookstate<Message[], {}>([]);
 const focusedInputState = hookstate(null) as State<React.Component<unknown, {}, any> & Readonly<NativeMethods>>;
 
-export function useFocusedInput()
-{
+export function useFocusedInput() {
     const focusedInput = useHookstate(focusedInputState);
     return { focusedInput: focusedInput.get(), setFocusedInput: focusedInput.set };
 }
 
-export function useMessage()
-{
+export function useMessage() {
     const messageQueue = useHookstate(messageQueueState);
 
     const currentMessage = messageQueue.get({ noproxy: true })[0];
@@ -36,11 +34,10 @@ export function useMessage()
     return { currentMessage, showMessage, dismissMessage };
 }
 
-export function UIProvider({ defaultLocale = 'en', children }: Props)
-{
+export function UIProvider({ defaultLocale = 'en', children }: Props) {
     const { currentMessage, dismissMessage } = useMessage();
     const currentLocale = useCurrentLocale();
-    const timerHandle = useRef<number>();
+    const timerHandle = useRef<number>(null);
 
     useEffect(() => {
         currentLocale.set(defaultLocale);
@@ -50,8 +47,7 @@ export function UIProvider({ defaultLocale = 'en', children }: Props)
         if (timerHandle.current)
             clearTimeout(timerHandle.current);
 
-        if (currentMessage && currentMessage.duration !== null)
-        {
+        if (currentMessage && currentMessage.duration !== null) {
             timerHandle.current = setTimeout(() => {
                 dismissMessage();
             }, currentMessage.duration || 5000);
@@ -66,7 +62,7 @@ export function UIProvider({ defaultLocale = 'en', children }: Props)
                 style={{ position: 'absolute' }}
             >
                 {currentMessage.render?.(dismissMessage) ||
-                <Toast message={currentMessage} onClose={dismissMessage} />}
+                    <Toast message={currentMessage} onClose={dismissMessage} />}
             </Animatable.View>}
         </>
     );

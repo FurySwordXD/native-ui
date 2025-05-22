@@ -10,8 +10,7 @@ interface Props {
     style?: ViewStyle;
 }
 
-export default function OverlaySpinner({ message, opacity, style }: Props)
-{
+export default function OverlaySpinner({ message, opacity, style }: Props) {
     return (
         <View
             style={{

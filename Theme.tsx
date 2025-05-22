@@ -1,5 +1,5 @@
 import { hookstate, useHookstate } from "@hookstate/core";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ImageStyle, TextStyle, ViewStyle } from "react-native";
 import Colors from "./Colors";
 
@@ -20,14 +20,14 @@ declare global {
     }
 
     interface ThemeType {
-        [component: string]: ComponentTheme
+        [component: string]: ComponentTheme;
     }
 
 }
 
 // const Theme: ThemeType = {};
 
-const ThemeState = hookstate<ThemeType>({});
+const ThemeState = hookstate<ThemeType>(getBaseTheme());
 
 const shadowConfig = {
     elevation: 3,
@@ -37,7 +37,7 @@ const shadowConfig = {
     shadowRadius: 10,
 };
 
-function updateBaseTheme() {
+function getBaseTheme() {
     const theme: ThemeType = {
         Box: {},
         View: {
@@ -48,7 +48,7 @@ function updateBaseTheme() {
         },
         Card: {
             style: {
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.foreground,
                 borderRadius: 10,
                 padding: 20,
             }
@@ -74,23 +74,23 @@ function updateBaseTheme() {
             },
             variants: {
                 'heading': {
-                    color: Colors.black,
+                    color: Colors.greyScale[0],
                     fontWeight: '600',
                     fontSize: 20,
                 },
                 'key': {
-                    color: Colors.dark,
+                    color: Colors.greyScale[1],
                     fontWeight: '600',
                     fontSize: 14,
                 },
                 'subtitle': {
-                    color: Colors.grey,
+                    color: Colors.greyScale[2],
                 },
                 'error': {
                     color: Colors.error,
                 },
                 'default': {
-                    color: Colors.dark,
+                    color: Colors.greyScale[1],
                 },
             }
         },
@@ -114,10 +114,11 @@ function updateBaseTheme() {
                 })
             }
         },
+        Input: {},
         Divider: {
             style: {
                 height: 1,
-                backgroundColor: `${Colors.grey}75`,
+                backgroundColor: `${Colors.greyScale[2]}75`,
                 marginTop: 5, marginBottom: 5,
             }
         }
@@ -125,22 +126,20 @@ function updateBaseTheme() {
     return theme;
 }
 
+export function updateTheme(theme: ThemeType) {
+    ThemeState.merge({ ...getBaseTheme(), ...theme });
+}
+
 export function useTheme() {
     const themeState = useHookstate(ThemeState);
+    const theme = themeState.get({ noproxy: true }) as ThemeType;
 
-    useEffect(() => {
-        themeState.merge(updateBaseTheme());
-    }, [Colors]);
-
-    return { theme: themeState.get() as ThemeType, updateTheme: themeState.merge };
+    return { theme, updateTheme };
 }
 
 export function useComponentTheme(component: string) {
     const themeState = useHookstate(ThemeState[component]);
+    const theme = themeState.get({ noproxy: true }) as ComponentTheme;
 
-    useEffect(() => {
-        themeState.merge(updateBaseTheme());
-    }, [Colors]);
-
-    return { theme: themeState.get() as ComponentTheme, updateTheme: themeState.merge };
+    return { theme };
 }

@@ -15,7 +15,6 @@ import Octicons from "react-native-vector-icons/Octicons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import Zocial from "react-native-vector-icons/Zocial";
 
-
 import Colors from "../Colors";
 
 interface Props {
@@ -26,7 +25,7 @@ interface Props {
     color?: string;
 }
 
-export default function Icon({ name, size = 24, color = Colors.primary, type = 'MaterialCommunity' }: Props) {
+export default function Icon({ name, size = 24, color = Colors.greyScale[1], type = 'MaterialCommunity' }: Props) {
     switch (type) {
         case "AntDesign":
             return <AntDesign name={name} size={size} color={color} />;

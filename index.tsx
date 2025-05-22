@@ -32,7 +32,7 @@ export { default as Checkbox } from './components/Checkbox';
 export { UIProvider, useMessage } from './Provider';
 
 // Constants
-export { default as Colors } from './Colors';
-export { useTheme, useComponentTheme } from './Theme';
+export { default as Colors, updateColors } from './Colors';
+export { useTheme } from './Theme';
 export { default as useCurrentLocale } from './Localization';
 

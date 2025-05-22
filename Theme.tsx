@@ -1,5 +1,4 @@
 import { hookstate, useHookstate } from "@hookstate/core";
-import { useEffect, useState } from "react";
 import { ImageStyle, TextStyle, ViewStyle } from "react-native";
 import Colors from "./Colors";
 
@@ -24,10 +23,6 @@ declare global {
     }
 
 }
-
-// const Theme: ThemeType = {};
-
-const ThemeState = hookstate<ThemeType>(getBaseTheme());
 
 const shadowConfig = {
     elevation: 3,
@@ -56,7 +51,8 @@ function getBaseTheme() {
         VStack: {},
         HStack: {
             style: {
-                alignItems: 'center'
+                alignItems: 'center',
+                width: '100%',
             }
         },
         ScrollView: {
@@ -125,6 +121,8 @@ function getBaseTheme() {
     };
     return theme;
 }
+
+const ThemeState = hookstate<ThemeType>(getBaseTheme());
 
 export function updateTheme(theme: ThemeType) {
     ThemeState.merge({ ...getBaseTheme(), ...theme });

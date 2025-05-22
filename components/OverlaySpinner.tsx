@@ -15,7 +15,7 @@ export default function OverlaySpinner({ message, opacity, style }: Props) {
         <View
             style={{
                 position: 'absolute', width: '100%', height: '100%',
-                backgroundColor: `rgba(234, 239, 246, ${opacity || 0.5})`,
+                backgroundColor: `${Colors.greyScale[4]}${((opacity || 0.5) * 100).toString(16)}`,
                 top: 0, left: 0, right: 0, bottom: 0,
                 justifyContent: 'center', alignItems: 'center',
                 ...style

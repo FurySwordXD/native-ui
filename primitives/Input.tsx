@@ -49,7 +49,7 @@ export default forwardRef(function Input(
             <HStack space={10} style={{
                 borderWidth: 1, paddingHorizontal: 10, alignItems: 'center',
                 borderRadius: 10, height: 50,
-                borderColor: isFocused ? `${Colors.primary}50` : Colors.background,
+                borderColor: isFocused ? `${Colors.primary}50` : Colors.greyScale[2],
                 backgroundColor: isFocused && `${Colors.primary}20`,
             }}>
                 {leftElement}

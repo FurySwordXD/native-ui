@@ -3,6 +3,7 @@ import HStack from "../layout/HStack";
 import Icon from "../primitives/Icon";
 import Button from "../primitives/Button";
 import Text from "../primitives/Text";
+import Colors from "../Colors";
 
 interface RadioOption {
     label: string;
@@ -15,12 +16,13 @@ interface RadioItemProps {
     setSelectedOption: React.Dispatch<React.SetStateAction<RadioOption>>;
 }
 
-function RadioItem({ isSelected, option, setSelectedOption }: RadioItemProps)
-{
+function RadioItem({ isSelected, option, setSelectedOption }: RadioItemProps) {
     return (
-        <Button variant="ghost" onPress={()=>{ setSelectedOption(option) }}>
+        <Button variant="ghost" onPress={() => { setSelectedOption(option) }}>
             <HStack>
-                <Icon size={24} name={isSelected ? 'radiobox-marked' : 'radiobox-blank'} />
+                <Icon size={24} name={isSelected ? 'radiobox-marked' : 'radiobox-blank'}
+                    color={isSelected ? Colors.primary : Colors.greyScale[1]}
+                />
                 <Text>{option.label}</Text>
             </HStack>
         </Button>
@@ -33,8 +35,7 @@ interface Props {
     options: RadioOption[];
 }
 
-export default function Radio({ value, onChange, options } : Props)
-{
+export default function Radio({ value, onChange, options }: Props) {
     const defaultOption = value ? options.find(o => o.value == value) : null;
     const [selectedOption, setSelectedOption] = useState<RadioOption>(defaultOption);
 

@@ -36,8 +36,13 @@ interface Props {
 }
 
 export default function Radio({ value, onChange, options }: Props) {
-    const defaultOption = value ? options.find(o => o.value == value) : null;
-    const [selectedOption, setSelectedOption] = useState<RadioOption>(defaultOption);
+    const [selectedOption, setSelectedOption] = useState<RadioOption>();
+
+    useEffect(() => {
+        if (value) {
+            setSelectedOption(options.find(o => o.value == value));
+        }
+    }, [value]);
 
     useEffect(() => {
         if (selectedOption)

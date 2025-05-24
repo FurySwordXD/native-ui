@@ -60,7 +60,7 @@ export default forwardRef(function Input(
                     style={{
                         flex: 1, height: '100%',
                         paddingVertical: 10,
-                        color: Colors.greyScale[2],
+                        color: Colors.greyScale[1],
 
                         ...theme.style,
 

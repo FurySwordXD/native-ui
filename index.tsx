@@ -9,7 +9,7 @@ export { default as Card } from './layout/Card';
 export { default as Divider } from './layout/Divider';
 export { default as Modal } from './layout/Modal';
 export { FlatList as FlatList } from 'react-native';
-export { SafeAreaView as SafeAreaView } from 'react-native';
+export { SafeAreaView as SafeAreaView } from 'react-native-safe-area-context';
 
 // Primitives
 export { default as Text } from './primitives/Text';

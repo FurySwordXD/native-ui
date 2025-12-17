@@ -10,11 +10,10 @@ declare global {
     var LOCALIZED_STRINGS: LocalizedStrings;
 }
 
-LOCALIZED_STRINGS = {};
+globalThis.LOCALIZED_STRINGS = {};
 
 const currentLocaleState = hookstate('en');
 
-export default function useCurrentLocale()
-{
+export default function useCurrentLocale() {
     return useHookstate(currentLocaleState);
 }

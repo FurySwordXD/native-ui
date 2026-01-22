@@ -12,6 +12,10 @@ Native UI is a react native UI library that comes with themed components built o
 ```
 npm install react-native-native-ui
 ```
+- Install dependencies
+```
+npm install react-native-vector-icons@10.2.0 @hookstate/core
+```
 - Wrap your App with the UI Context Provider
 ```
 import { UIProvider } from 'react-native-native-ui';

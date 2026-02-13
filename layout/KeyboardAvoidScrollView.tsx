@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, EmitterSubscription, NativeScrollEvent, NativeSyntheticEvent, AppState, Dimensions, useWindowDimensions } from 'react-native';
+import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, NativeScrollEvent, NativeSyntheticEvent, useWindowDimensions } from 'react-native';
 import { useFocusedInput } from '../Provider';
 
-interface Props extends ScrollViewProps
-{
+interface Props extends ScrollViewProps {
     dismissKeyboardOnScroll?: boolean;
     scrollToInputOnFocus?: boolean;
     children: React.ReactNode;
@@ -12,8 +11,7 @@ interface Props extends ScrollViewProps
     contentContainerStyle?: ViewStyle;
 }
 
-export default function KeyboardAvoidScrollView({ children, style, dismissKeyboardOnScroll = true, scrollToInputOnFocus = true, spacing = 0, contentContainerStyle, ...props }: Props)
-{
+export default function KeyboardAvoidScrollView({ children, style, dismissKeyboardOnScroll = true, scrollToInputOnFocus = true, spacing = 0, contentContainerStyle, ...props }: Props) {
     const [keyboardHeight, setKeyboardHeight] = useState(0);
     const scrollY = useRef(0);
     const scrollviewRef = useRef<ScrollView>(null);
@@ -47,8 +45,7 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
     }
 
     const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-        if (dismissKeyboardOnScroll && scrollY.current - e.nativeEvent.contentOffset.y > 50)
-        {
+        if (dismissKeyboardOnScroll && scrollY.current - e.nativeEvent.contentOffset.y > 50) {
             Keyboard.dismiss();
         }
         scrollY.current = e.nativeEvent.contentOffset.y;
@@ -70,17 +67,17 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
                 marginBottom: Platform.OS == 'ios' ? keyboardHeight : 0,
             }}
         >
-		<ScrollView
-            ref={scrollviewRef}
-            onScroll={onScroll}
-            contentContainerStyle={{ flexGrow: 1, ...contentContainerStyle }}
-            keyboardShouldPersistTaps='handled'
-            {...props}
-        >
-        <View style={{ flexGrow: 1 }}>
-			{children}
-        </View>
-        </ScrollView>
+            <ScrollView
+                ref={scrollviewRef}
+                onScroll={onScroll}
+                contentContainerStyle={{ flexGrow: 1, ...contentContainerStyle }}
+                keyboardShouldPersistTaps='handled'
+                {...props}
+            >
+                <View style={{ flexGrow: 1 }}>
+                    {children}
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }

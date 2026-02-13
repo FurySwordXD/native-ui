@@ -1,5 +1,5 @@
 import React, { forwardRef, useState, RefObject } from "react";
-import { Platform, TextInput, TextInputProps, TextStyle, NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
+import { Platform, TextInput, TextInputProps, TextStyle, FocusEvent, BlurEvent } from "react-native";
 import HStack from "../layout/HStack";
 import View from "../layout/View";
 import Colors from "../Colors";
@@ -31,13 +31,13 @@ export default forwardRef(function Input(
     const { setFocusedInput } = useFocusedInput();
 
     const [isFocused, setFocused] = useState(false);
-    const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    const onFocus = (e: FocusEvent) => {
         props.onFocus?.(e);
         setFocusedInput(e.currentTarget as any);
         setFocused(true);
     }
 
-    const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    const onBlur = (e: BlurEvent) => {
         props.onBlur?.(e);
         setFocusedInput(null);
         setFocused(false);

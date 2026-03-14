@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useImperativeHandle, useState } from "react";
 import * as Animatable from 'react-native-animatable';
 
 import Box from "../layout/Box";
@@ -16,9 +16,25 @@ interface Props {
     onClose?: () => void;
 }
 
-export default function Accordion({ defaultIsOpen = false, title, content, onOpen, onClose }: Props) {
+export interface AccordionRef {
+    isOpen: boolean;
+    open(): void;
+    close(): void;
+}
+
+
+function Accordion({ defaultIsOpen = false, title, content, onOpen, onClose }: Props,
+    ref: React.ForwardedRef<AccordionRef>) {
     const [isOpen, setIsOpen] = useState(defaultIsOpen);
     const [showSpinner, setShowSpinner] = useState(true);
+
+    const open = () => {
+        setIsOpen(true);
+    }
+
+    const close = () => {
+        setIsOpen(false);
+    }
 
     useEffect(() => {
         if (isOpen) {
@@ -29,6 +45,8 @@ export default function Accordion({ defaultIsOpen = false, title, content, onOpe
             setShowSpinner(true);
         }
     }, [isOpen]);
+
+    useImperativeHandle(ref, () => ({ isOpen, open, close }));
 
     return (
         <View>
@@ -47,3 +65,5 @@ export default function Accordion({ defaultIsOpen = false, title, content, onOpe
         </View>
     )
 }
+
+export default React.forwardRef<AccordionRef, Props>(Accordion);

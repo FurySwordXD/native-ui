@@ -22,7 +22,6 @@ export interface AccordionRef {
     close(): void;
 }
 
-
 function Accordion({ defaultIsOpen = false, title, content, onOpen, onClose }: Props,
     ref: React.ForwardedRef<AccordionRef>) {
     const [isOpen, setIsOpen] = useState(defaultIsOpen);

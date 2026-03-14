@@ -20,7 +20,7 @@ export { default as Input } from './primitives/Input';
 export { default as Image } from './primitives/Image';
 
 // Components
-export { default as Accordion } from './components/Accordion';
+export { default as Accordion, AccordionRef } from './components/Accordion';
 export { default as OverlaySpinner } from './components/OverlaySpinner';
 export { default as Toast } from './components/Toast';
 export { default as Avatar } from './components/Avatar';

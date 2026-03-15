@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useState } from "react";
+import React, { useEffect, useImperativeHandle, useState, forwardRef, ForwardedRef } from "react";
 import * as Animatable from 'react-native-animatable';
 
 import Box from "../layout/Box";
@@ -23,7 +23,7 @@ export interface AccordionRef {
 }
 
 function Accordion({ defaultIsOpen = false, title, content, onOpen, onClose }: Props,
-    ref: React.ForwardedRef<AccordionRef>) {
+    ref: ForwardedRef<AccordionRef>) {
     const [isOpen, setIsOpen] = useState(defaultIsOpen);
     const [showSpinner, setShowSpinner] = useState(true);
 
@@ -65,4 +65,4 @@ function Accordion({ defaultIsOpen = false, title, content, onOpen, onClose }: P
     )
 }
 
-export default React.forwardRef<AccordionRef, Props>(Accordion);
+export default forwardRef<AccordionRef, Props>(Accordion);

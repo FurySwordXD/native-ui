@@ -8,6 +8,7 @@ interface Props extends ScrollViewProps {
 
 const ScrollView = React.forwardRef<DefaultScrollView, Props>(function ScrollView({
     contentContainerStyle,
+    horizontal,
     keyboardDismissMode = 'interactive',
     keyboardShouldPersistTaps = 'handled',
     scrollIndicatorInsets = { right: 1 },
@@ -18,7 +19,11 @@ const ScrollView = React.forwardRef<DefaultScrollView, Props>(function ScrollVie
 
     return <DefaultScrollView {...props}
         ref={ref}
-        contentContainerStyle={{ ...theme.style, ...contentContainerStyle }}
+        contentContainerStyle={{
+            ...theme.style,
+            ...(horizontal && { minHeight: undefined }),
+            ...contentContainerStyle
+        }}
         keyboardDismissMode={keyboardDismissMode}
         keyboardShouldPersistTaps={keyboardShouldPersistTaps}
         scrollIndicatorInsets={scrollIndicatorInsets}

@@ -19,6 +19,7 @@ const ScrollView = React.forwardRef<DefaultScrollView, Props>(function ScrollVie
 
     return <DefaultScrollView {...props}
         ref={ref}
+        horizontal={horizontal}
         contentContainerStyle={{
             ...theme.style,
             ...(horizontal && { minHeight: undefined }),

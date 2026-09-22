@@ -39,7 +39,8 @@ export default function Button({ variant = 'solid', color = Colors.primary, text
             ...theme.variantsWithProps?.[variant]?.({ variant, color, disableShadow }),
             ...theme.variants?.[variant],
 
-            ...style
+            ...style,
+            ...(props.disabled && { opacity: 0.5 })
         })}
     >
         <>
@@ -55,7 +56,7 @@ export default function Button({ variant = 'solid', color = Colors.primary, text
                 </Text>}
             {typeof children != 'string' && children}
             {rightElement}
-            {props.disabled && <View style={{ ...StyleSheet.absoluteFill, width: '1000%', height: '1000%', backgroundColor: `${Colors.greyScale[4]}50` }} />}
+            {/* {props.disabled && <View style={{ ...StyleSheet.absoluteFill, width: '1000%', height: '1000%', backgroundColor: `${Colors.greyScale[4]}50` }} />} */}
         </>
     </Pressable>;
 }

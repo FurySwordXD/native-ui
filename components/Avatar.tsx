@@ -19,6 +19,6 @@ export default function Avatar({ source, size = 50, color = Colors.primary, alt 
         justifyContent: 'center', alignItems: 'center'
     }}>
         <Text style={{ fontSize: 18, fontWeight: '600', color: Colors.greyScale[4] }}>{alt}</Text>
-        {source && <Image resizeMode="center" source={source} style={{ position: 'absolute', width: '100%', height: '100%' }} />}
+        {source && <Image resizeMode='cover' source={source} style={{ position: 'absolute', width: '100%', height: '100%' }} />}
     </Box>;
 }

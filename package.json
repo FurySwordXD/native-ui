@@ -22,10 +22,8 @@
 		"name": "Sainath Ganesh",
 		"url": "https://github.com/furyswordxd"
 	},
-	"dependencies": {
-		"@hookstate/core": "^4.0.2"
-	},
 	"peerDependencies": {
+		"@hookstate/core": "^4.0.2",
 		"react-native-animatable": "^1.4.0",
 		"react-native-safe-area-context": "^5.6.0",
 		"react-native-vector-icons": "10.2.0"

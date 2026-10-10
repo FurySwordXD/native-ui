@@ -54,7 +54,7 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
     const { focusedInput } = useFocusedInput();
 
     useEffect(() => {
-        if (Platform.OS == 'web' || !focusedInput || !keyboardHeight)
+        if (Platform.OS != 'ios' || !focusedInput || !keyboardHeight)
             return;
 
         onFocus();
@@ -63,8 +63,8 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
     return (
         <SafeAreaView
             style={{
-                flex: 1, ...style,
-                marginBottom: Platform.OS == 'ios' ? keyboardHeight : 0,
+                flexGrow: 1, ...style,
+                paddingBottom: keyboardHeight,
             }}
         >
             <ScrollView

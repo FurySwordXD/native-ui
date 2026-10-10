@@ -8,6 +8,7 @@ export { default as VStack } from './layout/VStack';
 export { default as Card } from './layout/Card';
 export { default as Divider } from './layout/Divider';
 export { default as Modal } from './layout/Modal';
+export { default as BottomSheet } from './layout/BottomSheet';
 export { FlatList as FlatList } from 'react-native';
 export { SafeAreaView as SafeAreaView } from 'react-native-safe-area-context';
 

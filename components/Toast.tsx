@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Easing, Platform, useWindowDimensions, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Animated, Easing, useWindowDimensions } from 'react-native';
 import Text from '../primitives/Text';
 import View from '../layout/View';
 import Box from '../layout/Box';
@@ -38,7 +39,7 @@ export default function Toast({ message, onClose }: Props) {
             // top: Platform.OS == 'ios' ? -75 : -50,
         }}
         >
-            <SafeAreaView>
+            <SafeAreaView edges={['top']}>
                 <HStack style={{ paddingHorizontal: 10, paddingVertical: 5, width: '100%' }}>
                     <View style={{ flex: 1, justifyContent: 'center' }}>
                         {title && <Text style={{ fontWeight: 'bold', color: 'white' }}>{title}</Text>}

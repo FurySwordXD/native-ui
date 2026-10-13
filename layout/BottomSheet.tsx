@@ -21,7 +21,7 @@ interface Props {
 export default function BottomSheet({ visible, title, onClose, maxHeight = '80%', children }: Props) {
 
     return (
-        <Modal visible={visible} onRequestClose={onClose}>
+        <Modal visible={visible} onRequestClose={onClose} animationType='slide'>
             <View style={{ flex: 1, justifyContent: 'flex-end', width: '100%' }}>
                 <Card
                     style={{

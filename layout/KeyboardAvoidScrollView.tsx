@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { SafeAreaView, View, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, NativeScrollEvent, NativeSyntheticEvent, useWindowDimensions } from 'react-native';
+import { View, SafeAreaView, ScrollView, Keyboard, ViewStyle, ScrollViewProps, Platform, TextInput, NativeScrollEvent, NativeSyntheticEvent, useWindowDimensions } from 'react-native';
 import { useFocusedInput } from '../Provider';
 
 interface Props extends ScrollViewProps {
@@ -61,16 +61,11 @@ export default function KeyboardAvoidScrollView({ children, style, dismissKeyboa
     }, [focusedInput, keyboardHeight]);
 
     return (
-        <SafeAreaView
-            style={{
-                flexGrow: 1, ...style,
-                paddingBottom: keyboardHeight,
-            }}
-        >
+        <SafeAreaView style={{ flexGrow: 1, ...style }}>
             <ScrollView
                 ref={scrollviewRef}
                 onScroll={onScroll}
-                contentContainerStyle={{ flexGrow: 1, ...contentContainerStyle }}
+                contentContainerStyle={{ flexGrow: 1, paddingBottom: keyboardHeight, ...contentContainerStyle }}
                 keyboardShouldPersistTaps='handled'
                 {...props}
             >
